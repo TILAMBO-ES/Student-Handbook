@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tilambo Elementary School Handbook App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (#F7F5F2, #DFDFDE, #8C8C88, #CFB784, #4F4A45) -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F5F2;
+            color: #4F4A45;
+            line-height: 1.6;
+        }
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 800px; /* Max width for larger screens */
+            margin: 0 auto; /* Center the app container */
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden; /* Hide scrollbars on the main container */
+        }
+        .app-header {
+            background-color: #4F4A45; /* Dark color for header */
+            color: #F7F5F2;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+        .main-content-area {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto; /* Enable scrolling for content */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            padding-bottom: 5rem; /* Space for fixed bottom nav */
+        }
+        .app-nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #DFDFDE; /* Light grey for nav */
+            padding: 0.75rem 0;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            z-index: 20;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            color: #8C8C88; /* Default icon/text color */
+        }
+        .nav-item:hover {
+            background-color: #CFB784;
+            color: #4F4A45;
+        }
+        .nav-item.active {
+            background-color: #CFB784;
+            color: #4F4A45;
+        }
+        .nav-item-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .nav-item-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .section-page {
+            display: none; /* Hidden by default */
+        }
+        .section-page.active {
+            display: block; /* Shown when active */
+        }
+        .section-heading {
+            color: #CFB784;
+        }
+        .sub-section-heading {
+            color: #4F4A45;
+        }
+        ul, ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        ul li, ol li {
+            margin-bottom: 0.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            border: 1px solid #DFDFDE;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #DFDFDE;
+            font-weight: 600;
+        }
+        .toggle-header {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #DFDFDE;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .toggle-header:hover {
+            background-color: #CFB784;
+            color: #F7F5F2;
+        }
+        .toggle-header:hover .toggle-icon {
+            color: #F7F5F2;
+        }
+        .toggle-header h4, .toggle-header h2 {
+            flex-grow: 1;
+            font-weight: 600;
+        }
+        .toggle-icon {
+            font-size: 1.25rem;
+            font-weight: bold;
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+            margin-left: 0.5rem;
+        }
+        .toggle-content {
+            padding: 0 1rem 1rem 1rem;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+        }
+        .toggle-content.active {
+            max-height: 2000px; /* Adjusted for potentially longer sections */
+            opacity: 1;
+            padding: 1rem; /* Add padding when active */
+        }
+        .toggle-header.active .toggle-icon {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="text-2xl font-bold">Tilambo Elementary School</h1>
+            <p class="text-sm font-semibold text-[#CFB784]">Student Handbook App</p>
+        </header>
+
+        <div class="main-content-area">
+            <!-- Home/Overview Section -->
+            <section id="overview" class="section-page active">
+                <h2 class="text-2xl font-bold mb-3 section-heading">VISION:</h2>
+                <p class="mb-4">A learner-centered, inclusive, and empowering education system that continuously improves to protect and promote the right to quality, accessible, relevant, and liberating basic education for all.</p>
+
+                <h2 class="text-2xl font-bold mb-3 section-heading">MISSION:</h2>
+                <p class="mb-4">To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education where:</p>
+                <ul class="list-disc ml-6 mb-8">
+                    <li>Students learn in a child-friendly, gender-sensitive, safe, and motivating environment.</li>
+                    <li>Teachers facilitate learning and constantly nurture every learner.</li>
+                    <li>Administrators and staff, as stewards of the institution, ensure an enabling and supportive environment for effective learning to happen.</li>
+                    <li>Family, community, and other stakeholders are actively engaged and share responsibility for developing life-long learners.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold mb-3 section-heading">FOREWORD</h2>
+                <p class="mb-4">Welcome to Tilambo Elementary School! This handbook is designed to serve as a comprehensive guide for all our students, parents, and guardians regarding the policies, rules, and regulations that govern our school community. It outlines the standards of conduct expected from our students and the support systems in place to ensure a safe, nurturing, and conducive learning environment.</p>
+                <p class="mb-4">This handbook is developed in strict alignment with the principles and provisions of the Department of Education (DepEd) Orders and Policies, particularly DepEd Order No. 40, s. 2012 (Child Protection Policy) and Republic Act No. 10627, also known as the Anti-Bullying Act of 2013, including its Implementing Rules and Regulations. We believe that by working together, we can foster a culture of respect, discipline, and academic excellence, ensuring that every child feels safe, valued, and empowered to learn.</p>
+            </section>
+
+            <!-- School Policies and Programs Section -->
+            <section id="policies-programs" class="section-page">
+                <div class="toggle-header section-toggle-header" data-toggle="section-i">
+                    <h2 class="text-2xl font-bold section-heading">I. SCHOOL POLICIES AND PROGRAMS</h2>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="toggle-content" id="section-i-content">
+                    <h3 class="text-xl font-semibold mb-2 sub-section-heading">A. SAFETY FIRST</h3>
+                    <p class="mb-4">The safety and well-being of our students are paramount. The following policies are implemented to ensure a secure and orderly environment for everyone:</p>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="gate-access">
+                            <h4>Gate Access:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="gate-access-content">
+                            <p>Alternate gates will be opened only upon the explicit direction of the school administrators (e.g., in cases of emergency evacuation, special events, or for authorized deliveries).</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="main-gate-schedule">
+                            <h4>Main Gate Schedule:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="main-gate-schedule-content">
+                            <p>The Main Gate will be closed from 7:30 AM to 12:00 AM (maybe opened depending on the schedule of kindergarten pupils and from 12:00 PM to 2:00 PM. It will be opened from 11:30 AM to 1:00 PM for designated periods.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="cleaning-supervision">
+                            <h4>Cleaning Supervision:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="cleaning-supervision-content">
+                            <p>All cleaning areas must be supervised by the respective class advisers during the designated cleaning time (6:45 AM - 7:15 AM).</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="accident-procedures">
+                            <h4>Accident Procedures:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="accident-procedures-content">
+                            <p>In case of accidents, the class adviser shall immediately provide first aid or facilitate the transport of the affected student to the Barangay Health Center, and promptly inform the student's parents/guardians.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="waste-segregation">
+                            <h4>Waste Segregation:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="waste-segregation-content">
+                            <p>Pupils are assigned to bring their paper trash to the school's Materials Recovery Facility (MRF) and their plastic trash home for proper disposal. This promotes environmental responsibility.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="emergency-evacuation">
+                            <h4>Emergency Evacuation:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="emergency-evacuation-content">
+                            <p>Designated room leaders will be assigned to handle and lead evacuation procedures in cases of emergencies such as earthquakes, fires, or other calamities. Regular drills will be conducted.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="orderliness">
+                            <h4>Orderliness:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="orderliness-content">
+                            <p>A culture of orderliness shall be developed and maintained in every classroom and throughout the school premises to minimize accidents and promote a safe environment, aiming for zero accidents.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="restricted-entry">
+                            <h4>Restricted Entry:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="restricted-entry-content">
+                            <p>Entry into the school premises during non-class days (Saturdays, Sundays, and holidays) is strictly prohibited unless expressly authorized by the school administration for official purposes.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="appropriate-attire">
+                            <h4>Appropriate Attire for Visitors:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="appropriate-attire-content">
+                            <p>For the safety and decorum of the school environment, visitors and parents entering the school premises are kindly requested to wear appropriate attire. Backless tops, very short shorts, and spaghetti strap blouses are prohibited.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-2 sub-section-heading mt-8">B. SCHOOL CULTURE AND BEST PRACTICES</h3>
+                    <p class="mb-4">Tilambo Elementary School fosters a culture of academic excellence and holistic development through the following best practices:</p>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="math-recitation">
+                            <h4>Mathematics Recitation:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="math-recitation-content">
+                            <ul class="list-disc ml-6">
+                                <li>Multiplication table recitation shall be conducted every Monday and Wednesday, from 12:30 PM to 1:00 PM.</li>
+                                <li>Grade III: Times Tables 1-5 for the First Semester; Times Tables 6-10 for the Second Semester.</li>
+                                <li>Grade IV-VI: Times Tables 1-10 will be practiced from August to April.</li>
+                                <li>Note: Pupils who have already demonstrated mastery of the Multiplication Table are exempted from these recitation sessions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="read-aloud">
+                            <h4>Read Aloud Program:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="read-aloud-content">
+                            <ul class="list-disc ml-6">
+                                <li>The Read Aloud Program shall be conducted every Tuesday and Thursday, from 12:30 PM to 1:00 PM.</li>
+                                <li>Grade I-III: Filipino books will be used as reading materials for the First Semester for beginning and moderately fast readers. English books will be used for fast and advanced readers.</li>
+                                <li>Grade IV-VI: Both Filipino and English materials will be utilized for pupils who are fast readers.</li>
+                                <li>Note: Specific mechanics and group assignments will be managed by the group leader.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="recess-time">
+                            <h4>Recess Time Management:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="recess-time-content">
+                            <ul class="list-disc ml-6">
+                                <li>Teachers will supervise their pupils, allowing five (5) students at a time to purchase items from the canteen during recess.</li>
+                                <li>Teachers will take their recess after their pupils have finished theirs.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="contest-practice">
+                            <h4>Contestants' Practice Sessions for Academic or Sports Competitions:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="contest-practice-content">
+                            <ul class="list-disc ml-6">
+                                <li>Practices for pupils participating in competitions may be held every day from 6:00 AM to 7 AM and 2:00 PM to 4:30 PM if there are no more academic classes schedule (time-on-task policy).</li>
+                                <li>Any additional practice days will be announced as needed and signed Parent’s Permit will be required.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="culture-respect">
+                            <h4>Culture of Respect and Neatness:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="culture-respect-content">
+                            <ul class="list-disc ml-6">
+                                <li>The practice of asking for blessings from elders by saying "Mano Po" is highly encouraged among pupils and is to be reinforced by teachers and the school community.</li>
+                                <li>A bulletin board inside the classroom will display the names of pupils who consistently demonstrate neatness, kindness, politeness, adherence to waste segregation, and other exemplary behaviors, to serve as positive reinforcement.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-2 sub-section-heading mt-8">C. CULTURE OF SERVICE EXCELLENCE AND FINANCIAL POLICIES</h3>
+                    <p class="mb-4">Tilambo Elementary School adheres to the highest standards of service excellence and transparent financial management:</p>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="free-education">
+                            <h4>Free Basic Education:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="free-education-content">
+                            <p>In accordance with the Philippine Constitution, it is hereby declared to all school stakeholders that basic education at Tilambo Elementary School is provided free of charge.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="fee-collection">
+                            <h4>Prohibition of Fee Collection:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="fee-collection-content">
+                            <p>Teachers are strictly prohibited from collecting any dues, fees, or contributions from pupils for any purpose whatsoever, in compliance with relevant DepEd Orders on No Collection Policy (e.g., DepEd Order No. 41, s. 2012, and subsequent issuances).</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="pta-collections">
+                            <h4>PTA Collections:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="pta-collections-content">
+                            <p>Only duly recognized PTA Officials shall have the authority to collect any voluntary dues from parents, provided that:</p>
+                            <ul class="list-disc ml-6">
+                                <li>The proposed amount and purpose of the dues have been approved by the majority of parents in a general assembly.</li>
+                                <li>Contributions are strictly voluntary in nature, and no student shall be deprived of any school service or privilege due to non-payment of PTA dues, in adherence to DepEd guidelines (e.g., DepEd Order No. 54, s. 2009).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="donation-policy">
+                            <h4>Donation Policy:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="donation-policy-content">
+                            <p>Teachers, PTA, and other stakeholders are not allowed to accept donations for the school without the prior knowledge and explicit approval of the Principal. A designated committee, officially formed and approved by the Principal, shall be responsible for transacting and accepting donations on behalf of the school.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="documentation-donations">
+                            <h4>Documentation of Donations:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="documentation-donations-content">
+                            <p>All donations received shall be properly documented. A Certificate of Donation will be issued by the School Property Custodian/Brigada Coordinator, with the endorsing signature of the Principal.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="adherence-rules">
+                            <h4>Adherence to Rules:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="adherence-rules-content">
+                            <p>All other school rules stated or posted within the school vicinity shall be carried out honestly, politely, and with integrity.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="feedback-dialogue">
+                            <h4>Feedback and Dialogue:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="feedback-dialogue-content">
+                            <p>Suggestion box will be available on a designated area to accommodate suggestions and concerns from the school community. Discussion session between teachers and concerned PTA officials will be held monthly/quarterly to address feedback and foster collaboration.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="child-friendly-env">
+                            <h4>Child-Friendly Environment:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="child-friendly-env-content">
+                            <p>All teachers are expected to be gender-sensitive, ardent child protection policy advocates, and to consistently promote a child-friendly learning environment.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-2 sub-section-heading mt-8">D. RECOGNITION OF PUPILS</h3>
+                    <p class="mb-4">Tilambo Elementary School celebrates student achievements and contributions:</p>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="academic-recognition">
+                            <h4>1. Academic Recognition:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="academic-recognition-content">
+                            <p>Learners who qualify for Academic Excellence Awards (With Honors, With High Honors, With Highest Honors) will be formally recognized during the end-of-school-year Recognition or Moving Up Ceremonies, as provided in DepEd Order No. 36, s. 2016.</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="contest-winners">
+                            <h4>2. Contest Winners:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="contest-winners-content">
+                            <p>All pupils who achieve success in contests outside the school level (e.g., District, Division, Regional, National Level) will be formally recognized during the flag ceremony, and their names will be proudly displayed on a tarpaulin outside the school gate, subject to parental consent and ensuring positive, non-comparative presentation.</p>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li><strong>Incentives for Excellence:</strong> Appropriate rewards will be given to pupils who bring honor and recognition to the school. The school shall provide appropriate tokens or certificates of appreciation to learners who bring honor to the school, as part of its goal to foster pride and a culture of excellence.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="awards-committee">
+                            <h4>3. AWARDS COMMITTEE (AC):</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="awards-committee-content">
+                            <p>The Awards Committee shall be solely responsible for scrutinizing and validating all awards to be given to students, ensuring fairness and adherence to criteria.</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Prize (for specified academic contests)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1. First Place</td>
+                                        <td>Php 300.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2. Second Place</td>
+                                        <td>Php 200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3. Third Place</td>
+                                        <td>Php 100.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="funding-awards">
+                            <h4>4. FUNDING FOR AWARDS AND COMPETITIONS:</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="funding-awards-content">
+                            <ul class="list-disc ml-6">
+                                <li><strong>Academic Contests (General):</strong> Fare for academic contests will be charged to the school canteen fund and the Faculty and Pupils Development Fund. Other related expenses will also be covered by the school fund, subject to availability and proper liquidation.</li>
+                                <li><strong>Sports:</strong> Fare, food, and cash incentives for sports events may be sourced from the PTA, Barangay Officials, and other Non-Government Organizations (NGOs) who generously support school programs. These incentives shall be subject to availability of funds and proper liquidation procedures.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- School Protection Policy and Student Conduct Section -->
+            <section id="protection-conduct" class="section-page">
+                <div class="toggle-header section-toggle-header" data-toggle="section-ii">
+                    <h2 class="text-2xl font-bold section-heading">II. SCHOOL PROTECTION POLICY AND STUDENT CONDUCT</h2>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="toggle-content" id="section-ii-content">
+                    <p class="mb-4">Tilambo Elementary School is committed to upholding a safe and protective environment for all learners, free from abuse, exploitation, violence, discrimination, and bullying. Our policies are anchored on the provisions of DepEd Order No. 40, s. 2012 (Child Protection Policy) and Republic Act No. 10627 (Anti-Bullying Act of 2013).</p>
+                    <p class="mb-4">To strengthen awareness and implementation, the Child Protection Policy Committee and School Head regularly conduct seminar-conferences for parents and pupils focusing on these crucial policies.</p>
+                    
+                    <h3 class="text-xl font-semibold mb-2 sub-section-heading">A. CLASSIFICATION OF VIOLATIONS AND SANCTIONS</h3>
+
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="light-offenses-intro">
+                            <h4>1. LIGHT OFFENSES</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="light-offenses-intro-content">
+                            <p class="mb-2">A Light Offense is defined as an act that is (1) contrary to the general rules and regulations of the school as stated in this Student Handbook or (2) disruptive in nature, but does not result in serious physical injury or significant damage to property.</p>
+                            <p class="font-semibold mb-2">Examples of Light Offenses:</p>
+                            <ul class="list-disc ml-6">
+                                <li>Using vulgar language, insulting remarks, or name-calling not falling under the definition of bullying.</li>
+                                <li>Simple Disobedience to directives issued by teachers and other school authorities.</li>
+                                <li>Laughing boisterously or shouting excessively inside school premises.</li>
+                                <li>Loitering, running in corridors, path walks, and unauthorized areas within the campus.</li>
+                                <li>Improper use of the School Uniform or non-compliance with the prescribed dress code (e.g., unkempt uniform).</li>
+                                <li>Improper Grooming (e.g., disobeying the prescribed haircut, wearing excessive accessories not aligned with school policy).</li>
+                                <li>Littering or disobeying school waste segregation rules.</li>
+                                <li>Throwing light objects that could potentially affect or cause minor annoyance to others.</li>
+                                <li>Giving inappropriate aliases.</li>
+                                <li>Eating others' food without their knowledge or permission.</li>
+                                <li>Laughing at others' mistakes.</li>
+                                <li>Hiding someone's belongings (e.g., slippers, books, bags).</li>
+                                <li>Obstructing or disturbing others during class or school activities.</li>
+                                <li>Bringing toys or objects that, while not inherently dangerous, may cause distraction or minor disruption.</li>
+                            </ul>
+                            <p class="font-semibold mb-2">Sanctions for Light Offenses:</p>
+                            <p class="mb-2">Sanctions for Light Offenses are designed to be corrective and rehabilitative, in line with DepEd's positive discipline approach.</p>
+                            <ul class="list-disc ml-6">
+                                <li><strong>FIRST OFFENSE:</strong> Verbal Reprimand and Positive Discipline Session by the class adviser with the student. This session will focus on explaining the impact of the student's actions and guiding them towards appropriate behavior. Parental notification will be made.</li>
+                                <li><strong>SECOND OFFENSE:</strong> Behavioral Contract. An agreement will be formalized between the student, parents/guardian, and a school representative (e.g., guidance counselor, school head). This contract will clearly state the expected behavior, specific goals, and the consequences if the same offense is violated again. A guarantor (e.g., barangay official, trusted community leader) may be involved.</li>
+                                <li><strong>THIRD OFFENSE:</strong> Community Service within the school premises or barangay. An agreement will be signed between the student, parents/guardian, and a guarantor (e.g., barangay official) outlining the nature and duration of the community service. The service will be supervised and rehabilitative in nature.</li>
+                                <li><strong>FOURTH OFFENSE:</strong> Supervised Community Service, with increased duration or intensity compared to the third offense. The specific terms will be determined by the school administration based on the student's progress and commitment.</li>
+                                <li><strong>FIFTH OFFENSE:</strong> Referral back to parent/guardian for three (3) school days with developmental learning intervention. The student will undertake assigned learning activities at home, supervised by parents, with guidance from the school. This aims to provide a focused period for reflection and behavioral modification.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="less-grave-offenses-intro">
+                            <h4 class="mt-6">2. LESS GRAVE OFFENSES</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="less-grave-offenses-intro-content">
+                            <p class="mb-2">A Less Grave Offense is defined as a willful disregard of school rules and regulations that results in less serious physical or emotional harm, or minor material damage.</p>
+                            <p class="font-semibold mb-2">Examples of Less Grave Offenses:</p>
+                            <ul class="list-disc ml-6">
+                                <li>Using profanity or vulgar, racist, or sexually inappropriate language to verbally abuse another pupil, which may escalate towards bullying behavior.</li>
+                                <li>Engaging in fights or inflicting physical harm against another student, resulting in minor injuries (e.g., bruises, scratches), not rising to the level of grave physical assault or severe bullying.</li>
+                                <li>Threats to inflict a wrong upon the person or property of another person or on his or her family, causing fear or apprehension.</li>
+                                <li>Deliberate destruction or minor damage to school property (e.g., school furniture, equipment, fixtures) or personal belongings of other students.</li>
+                                <li>Unauthorized alteration or defacing of school documents or records (e.g., report cards, forms).</li>
+                                <li>Cutting Classes without valid permission.</li>
+                                <li>Extortion, which involves extracting money or property from a pupil or student through non-violent intimidation or subtle pressure.</li>
+                                <li>Academic Dishonesty (e.g., cheating during quizzes or minor examinations, copying assignments, minor plagiarism).</li>
+                            </ul>
+                            <p class="font-semibold mb-2">Sanctions for Less Grave Offenses:</p>
+                            <ul class="list-disc ml-6">
+                                <li><strong>FIRST OFFENSE:</strong> Behavioral Contract. An agreement will be executed between the student, parents/guardian, and a broader support network which may include a barangay official, a school counselor, a priest, or any trusted community member who can provide support. This contract will include a clear plan for behavioral improvement.</li>
+                                <li><strong>SECOND OFFENSE:</strong> Supervised Community Service. The nature and duration of the community service will be proportionate to the offense and designed to foster a sense of responsibility.</li>
+                                <li><strong>THIRD OFFENSE:</strong> Referral back to parents/guardians for five (5) school days with intervention and referral. The student will be referred to the school counselor or other appropriate professionals (e.g., social worker, psychologist) for targeted support and intervention during this period.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="toggle-header" data-toggle="grave-offenses-intro">
+                            <h4 class="mt-6">3. GRAVE OFFENSES</h4>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="toggle-content" id="grave-offenses-intro-content">
+                            <p class="mb-2">A Grave Offense is defined as any act that is a gross and willful disregard of school rules and regulations that may result in serious physical injury, significant material damage, emotional trauma, or violations of law. These offenses warrant a formal investigation by the Child Protection Committee or appropriate school authorities, ensuring due process.</p>
+                            <p class="font-semibold mb-2">Examples of Grave Offenses:</p>
+                            <ul class="list-disc ml-6">
+                                <li>Committing theft or assisting in the preparation thereof, involving items of significant value, inside or outside school premises.</li>
+                                <li>Possessing or consuming any alcoholic drinks or beverages while in school premises or during official school activities.</li>
+                                <li>Membership in any organization or association that espouses violence, illegal activities (e.g., fraternity, sorority, gang), or recruitment of members for such organizations.</li>
+                                <li>Gambling in any form inside the school premises leading to significant financial loss or disruption.</li>
+                                <li>Selling, possessing, or being under the influence of any illegal or controlled drugs or substances, or possessing drug paraphernalia.</li>
+                                <li>Engaging in any form of voyeurism (e.g., secretly recording or viewing others in private situations), posting indecent or lewd photos/videos on the internet, or possessing pornographic materials.</li>
+                                <li>Assaulting or physically harming teachers, school staff, or other persons of authority within the school community.</li>
+                                <li>Possessing or bringing deadly or prohibited weapons (e.g., knives, firearms, prohibited sharp objects) inside the school premises.</li>
+                                <li>Engaging in lewd or inappropriate conduct towards other students, teachers, or other authorities (e.g., public display of affection that is sexually suggestive, sexual harassment).</li>
+                                <li>Engaging in fights or inflicting severe physical harm against another student, requiring medical attention or causing significant injury.</li>
+                                <li>Extortion, involving extracting money or property from pupils or students through force, severe threat, or intimidation.</li>
+                                <li>Academic Dishonesty on major assessments (e.g., cheating on summative examinations, stealing examination papers, malicious alteration of official school records).</li>
+                            </ul>
+                            <p class="font-semibold mb-2">Sanctions for Grave Offenses:</p>
+                            <p class="mb-2">For Grave Offenses, the school will conduct a thorough investigation, ensuring due process, and implement disciplinary actions in strict accordance with DepEd Order No. 40, s. 2012 (Child Protection Policy), Republic Act No. 10627 (Anti-Bullying Act), and other relevant DepEd policies on student discipline. Sanctions may include:</p>
+                            <ul class="list-disc ml-6">
+                                <li><strong>FIRST OFFENSE:</strong> Rendering supervised community service for five (5) days to the school or barangay, coupled with intensive intervention and referral to the school counselor, psychologist, or relevant external agencies if applicable. A behavioral contract will be formalized.</li>
+                                <li><strong>SECOND OFFENSE:</strong> Referral back to parents/guardians for three (3) school days. During this period, the student will engage in structured developmental learning interventions facilitated by school guidance personnel and parents.</li>
+                                <li><strong>THIRD OFFENSE:</strong> Referral back to parents/guarda
+                                <li><strong>FOURTH OFFENSE:</strong> Referral back to parents/guardians for an extended, specified number of days, which will be determined in consultation with parents/guardians, school officials, and relevant professionals. The duration will depend on the severity of the offense, the outcome of interventions, and the need for further support or referral. This may involve longer periods of absence from school, with a clear reintegration plan. In extreme cases, and after exhausting all possible interventions and following due process, severe disciplinary actions, including exclusion or expulsion, may be considered in accordance with DepEd regulations.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Signatories Section -->
+            <section id="signatories" class="section-page">
+                <h2 class="text-2xl font-bold mb-3 section-heading">Signatories</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-y-10 mb-8">
+                    <div>
+                        <p class="font-semibold">Prepared by:</p>
+                        <p class="ml-4">LIMUEL F. GALICIA</p>
+                        <p class="ml-4 text-sm text-[#8C8C88]">Head Teacher I</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Reviewed by:</p>
+                        <p class="ml-4">FLORANTE V. CANTOS</p>
+                        <p class="ml-4 text-sm text-[#8C8C88]">GPTA – President</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Concurred by:</p>
+                        <p class="ml-4">ANALYN I. SANTIAGO</p>
+                        <p class="ml-4 text-sm text-[#8C8C88]">Faculty President</p>
+                    </div>
+                    <div>
+                        <p class="ml-4 mt-6 md:mt-0">LORETA D. HERMIDILLA</p>
+                        <p class="ml-4 text-sm text-[#8C8C88]">Master Teacher II</p>
+                    </div>
+                    <div>
+                        <p class="font-semibold">With inputs from:</p>
+                        <p class="ml-4">LEONISA B. ESCALA</p>
+                        <p class="ml-4 text-sm text-[#8C8C88]">Guidance Designate</p>
+                    </div>
+                    <div>
+                        <p class="ml-4 mt-6 md:mt-0">PRINCE RODGE T. CORACHEA</p>
+                        <p class="ml-4 text-sm text-[#8C8C88]">SELG - President</p>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <p class="font-semibold">Approved by:</p>
+                    <p class="mt-2 text-lg font-bold">ERICKSON T. GUTIERREZ, EdD</p>
+                    <p class="text-base text-[#8C8C88]">OIC – Public Schools District Supervisor</p>
+                </div>
+
+                <section class="mt-12 text-center border-t border-[#DFDFDE] pt-8">
+                    <h2 class="text-2xl font-bold mb-4 section-heading">CONFORME:</h2>
+                    <p class="mb-6">By signing below, we acknowledge that we have read, understood, and agree to abide by the policies, rules, and regulations stipulated in this Student Handbook, which are aligned with the Department of Education's guidelines.</p>
+                    <div class="mb-4">
+                        <p class="inline-block mr-4">Name of Parent/Guardian and Signature:</p>
+                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
+                    </div>
+                    <div class="mb-6">
+                        <p class="inline-block mr-4">Date:</p>
+                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
+                    </div>
+                    <div class="mb-4">
+                        <p class="inline-block mr-4">Name of Pupil and Signature:</p>
+                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
+                    </div>
+                    <div>
+                        <p class="inline-block mr-4">Date:</p>
+                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
+                    </div>
+                </section>
+            </section>
+        </div>
+
+        <nav class="app-nav">
+            <div class="nav-item active" data-target="overview">
+                <span class="nav-item-icon">🏠</span>
+                <span class="nav-item-text">Overview</span>
+            </div>
+            <div class="nav-item" data-target="policies-programs">
+                <span class="nav-item-icon">🏫</span>
+                <span class="nav-item-text">Policies</span>
+            </div>
+            <div class="nav-item" data-target="protection-conduct">
+                <span class="nav-item-icon">⚖️</span>
+                <span class="nav-item-text">Conduct</span>
+            </div>
+            <div class="nav-item" data-target="signatories">
+                <span class="nav-item-icon">✍️</span>
+                <span class="nav-item-text">Signatories</span>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleHeaders = document.querySelectorAll('.toggle-header');
+            const sectionPages = document.querySelectorAll('.section-page');
+            const navItems = document.querySelectorAll('.nav-item');
+            const mainContentArea = document.querySelector('.main-content-area');
+
+            // Function to handle toggling of content sections
+            const handleToggle = (header) => {
+                const isSectionHeader = header.classList.contains('section-toggle-header');
+                const contentId = header.dataset.toggle + '-content';
+                const content = document.getElementById(contentId);
+                const icon = header.querySelector('.toggle-icon');
+
+                if (content) {
+                    if (content.classList.contains('active')) {
+                        content.classList.remove('active');
+                        icon.textContent = isSectionHeader ? '▶' : '+';
+                        header.classList.remove('active');
+                    } else {
+                        content.classList.add('active');
+                        icon.textContent = isSectionHeader ? '▼' : '–';
+                        header.classList.add('active');
+                    }
+                }
+            };
+
+            // Add event listeners for all toggle headers
+            toggleHeaders.forEach(header => {
+                header.addEventListener('click', () => handleToggle(header));
+            });
+
+            // Function to show a specific app section page
+            const showSection = (targetId) => {
+                sectionPages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
+
+                // Scroll to top of the content area when switching sections
+                mainContentArea.scrollTop = 0;
+            };
+
+            // Handle navigation clicks
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove active class from all nav items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active class to clicked nav item
+                    item.classList.add('active');
+                    // Show the corresponding section page
+                    showSection(item.dataset.target);
+                });
+            });
+
+            // Initially show the overview section
+            showSection('overview');
+        });
+    </script>
+</body>
+</html>

@@ -12,8 +12,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F7F5F2;
-            color: #4F4A45;
+            background-color: #F7F5F2; /* Off-white */
+            color: #4F4A45; /* Dark brown */
             line-height: 1.6;
         }
         .app-container {
@@ -28,14 +28,24 @@
             overflow: hidden; /* Hide scrollbars on the main container */
         }
         .app-header {
-            background-color: #4F4A45; /* Dark color for header */
-            color: #F7F5F2;
-            padding: 1rem;
+            background-color: #4F4A45; /* Dark brown for header */
+            color: #F7F5F2; /* Off-white */
+            padding: 1.5rem 1rem; /* Increased padding */
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* More pronounced shadow */
             position: sticky;
             top: 0;
             z-index: 20;
+        }
+        .app-header h1 {
+            font-size: 3.5rem; /* Significantly larger font size for main title */
+            line-height: 1; /* Adjust line height for better appearance */
+            margin-bottom: 0.5rem; /* Space between title and subtitle */
+        }
+        .app-header p {
+            font-size: 1.25rem; /* Slightly larger font for subtitle */
+            font-weight: 700; /* Bolder subtitle */
+            color: #CFB784; /* Gold/tan for subtitle */
         }
         .main-content-area {
             flex-grow: 1;
@@ -63,15 +73,15 @@
             padding: 0.5rem;
             border-radius: 8px;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-            color: #8C8C88; /* Default icon/text color */
+            color: #8C8C88; /* Medium grey (default icon/text color) */
         }
         .nav-item:hover {
-            background-color: #CFB784;
-            color: #4F4A45;
+            background-color: #CFB784; /* Gold/tan */
+            color: #4F4A45; /* Dark brown */
         }
         .nav-item.active {
-            background-color: #CFB784;
-            color: #4F4A45;
+            background-color: #CFB784; /* Gold/tan */
+            color: #4F4A45; /* Dark brown */
         }
         .nav-item-icon {
             font-size: 1.5rem;
@@ -88,10 +98,10 @@
             display: block; /* Shown when active */
         }
         .section-heading {
-            color: #CFB784;
+            color: #CFB784; /* Gold/tan */
         }
         .sub-section-heading {
-            color: #4F4A45;
+            color: #4F4A45; /* Dark brown */
         }
         ul, ol {
             padding-left: 1.5rem;
@@ -107,33 +117,63 @@
             margin-bottom: 1rem;
         }
         th, td {
-            border: 1px solid #DFDFDE;
+            border: 1px solid #DFDFDE; /* Light grey */
             padding: 0.75rem;
             text-align: left;
         }
         th {
-            background-color: #DFDFDE;
+            background-color: #DFDFDE; /* Light grey */
             font-weight: 600;
         }
+        /* Default toggle-header style (for deepest level) */
         .toggle-header {
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #DFDFDE;
+            background-color: #DFDFDE; /* Light grey */
+            color: #4F4A45; /* Dark brown */
             padding: 0.75rem 1rem;
             border-radius: 0.5rem;
             margin-bottom: 0.5rem;
-            transition: background-color 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
         }
         .toggle-header:hover {
-            background-color: #CFB784;
-            color: #F7F5F2;
+            background-color: #CFB784; /* Gold/tan on hover */
+            color: #F7F5F2; /* Off-white text on hover */
         }
         .toggle-header:hover .toggle-icon {
-            color: #F7F5F2;
+            color: #F7F5F2; /* Off-white icon on hover */
         }
-        .toggle-header h4, .toggle-header h2 {
+
+        /* Level 1 Toggle Header (for h3 and main h4 toggles) */
+        /* Ito ang style na ginagamit ng "BISYON", "MISYON", at "A. KALIGTASAN UNA" para maging pareho ang kulay. */
+        .toggle-header-level1 {
+            background-color: #CFB784; /* Gold/tan */
+            color: #4F4A45; /* Dark brown */
+        }
+        .toggle-header-level1:hover {
+            background-color: #8C8C88; /* Medium grey on hover */
+            color: #F7F5F2; /* Off-white text on hover */
+        }
+        .toggle-header-level1:hover .toggle-icon {
+            color: #F7F5F2; /* Off-white icon on hover */
+        }
+
+        /* Level 2 Toggle Header (for h4 toggles under main h4 toggle) */
+        .toggle-header-level2 {
+            background-color: #8C8C88; /* Medium grey */
+            color: #F7F5F2; /* Off-white */
+        }
+        .toggle-header-level2:hover {
+            background-color: #4F4A45; /* Dark brown on hover */
+            color: #F7F5F2; /* Off-white text on hover */
+        }
+        .toggle-header-level2:hover .toggle-icon {
+            color: #F7F5F2; /* Off-white icon on hover */
+        }
+
+        .toggle-header h4, .toggle-header h3, .toggle-header h2 {
             flex-grow: 1;
             font-weight: 600;
         }
@@ -147,16 +187,79 @@
             padding: 0 1rem 1rem 1rem;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 0;
-            opacity: 0;
-        }
-        .toggle-content.active {
             max-height: 2000px; /* Adjusted for potentially longer sections */
             opacity: 1;
             padding: 1rem; /* Add padding when active */
         }
+        .toggle-content:not(.active) {
+            max-height: 0;
+            opacity: 0;
+            padding: 0 1rem; /* Remove vertical padding when collapsed */
+        }
         .toggle-header.active .toggle-icon {
             transform: rotate(90deg);
+        }
+        .policy-card {
+            background-color: #DFDFDE; /* Light grey */
+            color: #4F4A45; /* Dark brown */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 120px; /* Ensure consistent height */
+        }
+        .policy-card:hover {
+            background-color: #CFB784; /* Gold/tan */
+            color: #F7F5F2; /* Off-white text */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .policy-card h3 {
+            color: inherit; /* Inherit color from parent for hover effect */
+        }
+        .policy-card p {
+            color: inherit; /* Inherit color from parent for hover effect */
+            font-size: 0.9rem;
+        }
+        .back-button {
+            background-color: #8C8C88; /* Medium grey */
+            color: #F7F5F2; /* Off-white */
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        .back-button:hover {
+            background-color: #4F4A45; /* Dark brown */
+        }
+        .back-to-home-button, .back-to-category-button {
+            background-color: #CFB784; /* Gold/tan */
+            color: #4F4A45; /* Dark brown */
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            margin-top: 2rem; /* Space from content above */
+            margin-bottom: 1rem; /* Space from bottom nav */
+            display: block; /* Make it a block element to center */
+            width: fit-content; /* Fit content width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .back-to-home-button:hover, .back-to-category-button:hover {
+            background-color: #8C8C88; /* Medium grey */
+            color: #F7F5F2; /* Off-white */
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -164,492 +267,734 @@
 
     <div class="app-container">
         <header class="app-header">
-            <h1 class="text-2xl font-bold">Tilambo Elementary School</h1>
-            <p class="text-sm font-semibold text-[#CFB784]">Handbook ng Mag-aaral</p>
+            <h1 class="font-bold">Tilambo ES</h1>
+            <p class="font-semibold">Handbook ng Mag-aaral</p>
         </header>
 
         <div class="main-content-area">
             <!-- Home/Overview Section -->
             <section id="overview" class="section-page active">
-                <h2 class="text-2xl font-bold mb-3 section-heading">BISYON:</h2>
-                <p class="mb-4">Isang sistema ng edukasyon na nakasentro sa mag-aaral, kasama ang lahat, at nagbibigay ng kapangyarihan. Patuloy itong bumubuti para protektahan at itaguyod ang karapatan sa de-kalidad, madaling maabot, angkop, at nagpapalaya na batayang edukasyon para sa lahat.</p>
+                <div class="text-center">
+                    <!-- Updated logo image to automatically fit and retain quality -->
+                    <img src="TILAMBO ES LOGO with YEAR EST.jpg" onerror="this.onerror=null; this.src='https://placehold.co/150x150/DFDFDE/4F4A45?text=Logo';" alt="Tilambo ES Logo" class="max-w-full h-auto mx-auto mb-4 rounded-full border-2 border-[#CFB784] object-contain">
+                    <h2 class="text-2xl font-bold mb-1 text-[#4F4A45]">Maligayang Pagdating sa Tilambo Elementary School!</h2>
+                    <p class="text-sm text-[#8C8C88] mb-2">School ID: 107806</p>
+                    <p class="text-sm text-[#8C8C88] mb-6">Tilambo, Taysan, Batangas</p>
 
-                <h2 class="text-2xl font-bold mb-3 section-heading">MISYON:</h2>
-                <p class="mb-4">Protektahan at itaguyod ang karapatan ng bawat Pilipino sa de-kalidad, patas, nakabatay sa kultura, at kumpletong batayang edukasyon kung saan:</p>
-                <ul class="list-disc ml-6 mb-8">
-                    <li>Ang mga mag-aaral ay natututo sa isang kapaligirang ligtas, nakaka-engganyo, at sensitibo sa kasarian.</li>
-                    <li>Ang mga guro ay gumagabay sa pagkatuto at patuloy na nag-aalaga sa bawat mag-aaral.</li>
-                    <li>Ang mga tagapamahala at kawani, bilang tagapangalaga ng institusyon, ay nagsisigura ng isang kapaligirang sumusuporta para maganap ang epektibong pagkatuto.</li>
-                    <li>Ang pamilya, komunidad, at iba pang kasama ay aktibong nakikilahok at nagbabahagi ng responsibilidad sa paghubog ng mga mag-aaral na patuloy na matuto habambuhay.</li>
-                </ul>
+                    <!-- Updated welcome image to automatically fit and retain quality -->
+                    <img src="I love Tilambo-new.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x200/DFDFDE/4F4A45?text=Welcome+Image';" alt="I Love Tilambo Entrance" class="max-w-full h-auto object-contain rounded-lg shadow-md mx-auto mb-6">
 
-                <h2 class="text-2xl font-bold mb-3 section-heading">PAUNANG SALITA</h2>
-                <p class="mb-4">Maligayang pagdating sa Tilambo Elementary School! Ang handbook na ito ay ginawa para maging gabay ng lahat ng aming mag-aaral, magulang, at tagapag-alaga tungkol sa mga patakaran at alituntunin na sumasaklaw sa aming komunidad ng paaralan. Ipinapaliwanag nito ang mga pamantayan ng pag-uugali na inaasahan sa aming mga mag-aaral at ang mga sistema ng suporta para masiguro ang isang ligtas, nag-aalaga, at magandang kapaligiran sa pag-aaral.</p>
-                <p class="mb-4">Ang handbook na ito ay binuo nang mahigpit na sumusunod sa mga prinsipyo at probisyon ng mga DepEd Order at Patakaran, lalo na ang DepEd Order No. 40, s. 2012 (Child Protection Policy) at Republic Act No. 10627, na kilala rin bilang Anti-Bullying Act of 2013, kasama ang mga Implementing Rules and Regulations nito. Naniniwala kami na sa pagtutulungan, maitataguyod namin ang kultura ng paggalang, disiplina, at kahusayan sa akademiko, na nagsisigurong bawat bata ay ligtas, pinahahalagahan, at may kakayahang matuto.</p>
+                    <h2 class="text-2xl font-bold mb-3 section-heading">PAUNANG SALITA</h2>
+                    <p class="mb-4">Maligayang pagdating sa Tilambo Elementary School! Ang handbook na ito ay ginawa para maging gabay ng lahat ng aming mag-aaral, magulang, at tagapag-alaga tungkol sa mga patakaran at alituntunin na sumasaklaw sa aming komunidad ng paaralan. Ipinapaliwanag nito ang mga pamantayan ng pag-uugali na inaasahan sa aming mga mag-aaral at ang mga sistema ng suporta para masiguro ang isang ligtas, nag-aalaga, at magandang kapaligiran sa pag-aaral.</p>
+                    <p class="mb-4">Ang handbook na ito ay binuo nang mahigpit na sumusunod sa mga prinsipyo at probisyon ng mga DepEd Order at Patakaran, lalo na ang DepEd Order No. 40, s. 2012 (Child Protection Policy) at Republic Act No. 10627, na kilala rin bilang Anti-Bullying Act of 2013, kasama ang mga Implementing Rules and Regulations nito. Naniniwala kami na sa pagtutulungan, maitataguyod namin ang kultura ng paggalang, disiplina, at kahusayan sa akademiko, na nagsisigurong bawat bata ay ligtas, pinahahalagahan, at may kakayahang matuto.</p>
+                </div>
+
+                <!-- New Main Toggle for Vision and Mission -->
+                <div class="mb-4">
+                    <div class="toggle-header toggle-header-level1" data-toggle="bisyon-misyon-main">
+                        <h3 class="text-xl font-bold section-heading">BISYON AT MISYON</h3>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="bisyon-misyon-main-content">
+                        <!-- Nested Toggle for BISYON -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="bisyon">
+                                <h3 class="text-lg font-bold sub-section-heading">BISYON:</h3>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="bisyon-content">
+                                <p class="mb-4">Isang sistema ng edukasyon na nakasentro sa mag-aaral, kasama ang lahat, at nagbibigay ng kapangyarihan. Patuloy itong bumubuti para protektahan at itaguyod ang karapatan sa de-kalidad, madaling maabot, angkop, at nagpapalaya na batayang edukasyon para sa lahat.</p>
+                            </div>
+                        </div>
+
+                        <!-- Nested Toggle for MISYON -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="misyon">
+                                <h3 class="text-lg font-bold sub-section-heading">MISYON:</h3>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="misyon-content">
+                                <p class="mb-4">Protektahan at itaguyod ang karapatan ng bawat Pilipino sa de-kalidad, patas, nakabatay sa kultura, at kumpletong batayang edukasyon kung saan:</p>
+                                <ul class="list-disc ml-6 mb-8">
+                                    <li>Ang mga mag-aaral ay natututo sa isang kapaligirang ligtas, nakaka-engganyo, at sensitibo sa kasarian.</li>
+                                    <li>Ang mga guro ay gumagabay sa pagkatuto at patuloy na nag-aalaga sa bawat mag-aaral.</li>
+                                    <li>Ang mga tagapamahala at kawani, bilang tagapangalaga ng institusyon, ay nagsisigura ng isang kapaligirang sumusuporta para maganap ang epektibong pagkatuto.</li>
+                                    <li>Ang pamilya, komunidad, at iba pang kasama ay aktibong nakikilahok at nagbabahagi ng responsibilidad sa paghubog ng mga mag-aaral na patuloy na matuto habambuhay.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <!-- Mga Patakaran at Programa ng Paaralan Section -->
+            <!-- Mga Patakaran at Programa ng Paaralan Section - Index Page -->
             <section id="patakaran-programa" class="section-page">
-                <div class="toggle-header section-toggle-header" data-toggle="section-i">
-                    <h2 class="text-2xl font-bold section-heading">I. MGA PATAKARAN AT PROGRAMA NG PAARALAN</h2>
-                    <span class="toggle-icon">▶</span>
-                </div>
-                <div class="toggle-content" id="section-i-content">
-                    <h3 class="text-xl font-semibold mb-2 sub-section-heading">A. KALIGTASAN UNA</h3>
-                    <p class="mb-4">Ang kaligtasan at kapakanan ng aming mga mag-aaral ang pinakamahalaga. Ang mga sumusunod na patakaran ay ipinapatupad para masiguro ang isang ligtas at maayos na kapaligiran para sa lahat:</p>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pagpasok-gate">
-                            <h4>Pagpasok sa Gate:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pagpasok-gate-content">
-                            <p>Ang mga gate ay sarado mula 7:30 AM hanggang 11:30 AM at mula 12:00 PM hanggang 2:00 PM. Bukas lamang ang ibang gate kung may malinaw na utos mula sa mga tagapamahala ng paaralan (halimbawa, sa mga emergency evacuation, espesyal na kaganapan, o para sa awtorisadong paghahatid).</p>
-                        </div>
+                <h2 class="text-2xl font-bold section-heading text-center mb-6">I. MGA PATAKARAN AT PROGRAMA NG PAARALAN</h2>
+                <p class="text-center text-[#8C8C88] mb-8">Pumili ng seksyon para sa detalyadong patakaran:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="policy-card" data-target-page="kaligtasan-una-page">
+                        <h3 class="text-xl font-semibold mb-2">A. KALIGTASAN UNA</h3>
+                        <p class="text-sm text-[#8C8C88]">Mga patakaran para sa kaligtasan at kapakanan ng mga mag-aaral.</p>
                     </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pagsubaybay-paglilinis">
-                            <h4>Pagsubaybay sa Paglilinis:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pagsubaybay-paglilinis-content">
-                            <p>Lahat ng lugar ng paglilinis ay dapat subaybayan ng kani-kanilang class adviser sa itinakdang oras ng paglilinis (6:45 AM - 7:15 AM).</p>
-                        </div>
+                    <div class="policy-card" data-target-page="kultura-paaralan-page">
+                        <h3 class="text-xl font-semibold mb-2">B. KULTURA NG PAARALAN AT MAGANDANG KASANAYAN</h3>
+                        <p class="text-sm text-[#8C8C88]">Mga kasanayan para sa akademikong kahusayan at holistic na pag-unlad.</p>
                     </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pamamaraan-aksidente">
-                            <h4>Pamamaraan sa Aksidente:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pamamaraan-aksidente-content">
-                            <p>Kung may aksidente, ang class adviser ay agad na magbibigay ng first aid o tutulong sa pagdala ng mag-aaral sa Barangay Health Center, at agad na ipapaalam sa mga magulang/tagapag-alaga ng mag-aaral.</p>
-                        </div>
+                    <div class="policy-card" data-target-page="kultura-serbisyo-page">
+                        <h3 class="text-xl font-semibold mb-2">C. KULTURA NG KAHUSAYAN SA SERBISYO AT MGA PATAKARANG PINANSYAL</h3>
+                        <p class="text-sm text-[#8C8C88]">Mga pamantayan sa serbisyo at malinaw na pamamahala sa pananalapi.</p>
                     </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="paghihiwalay-basura">
-                            <h4>Paghihiwalay ng Basura:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="paghihiwalay-basura-content">
-                            <p>Ang mga mag-aaral ay inaatasan na dalhin ang kanilang basurang papel sa Materials Recovery Facility (MRF) ng paaralan at ang kanilang basurang plastik sa bahay para sa tamang pagtatapon. Ito ay nagtataguyod ng responsibilidad sa kapaligiran.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="emergency-evacuation">
-                            <h4>Emergency Evacuation:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="emergency-evacuation-content">
-                            <p>Ang mga itinalagang lider ng silid-aralan ay aatasan na mamahala at manguna sa mga pamamaraan ng paglikas sa mga kaso ng emergency tulad ng lindol, sunog, o iba pang kalamidad. Regular na magsasagawa ng mga drill.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="kaayusan">
-                            <h4>Kaayusan:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="kaayusan-content">
-                            <p>Isang kultura ng kaayusan ang bubuuin at pananatilihin sa bawat silid-aralan at sa buong bakuran ng paaralan para mabawasan ang mga aksidente at itaguyod ang isang ligtas na kapaligiran, na naglalayong magkaroon ng zero aksidente.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="bawal-pumasok">
-                            <h4>Bawal Pumasok:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="bawal-pumasok-content">
-                            <p>Mahigpit na ipinagbabawal ang pagpasok sa bakuran ng paaralan sa mga araw na walang klase (Sabado, Linggo, at pista opisyal) maliban kung malinaw na pinahintulutan ng administrasyon ng paaralan para sa opisyal na layunin.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="tamang-pananamit">
-                            <h4>Tamang Pananamit para sa mga Bisita:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="tamang-pananamit-content">
-                            <p>Para sa kaligtasan at kaayusan ng kapaligiran ng paaralan, ang mga bisita at magulang na pumapasok sa bakuran ng paaralan ay pinakikiusapan na magsuot ng angkop na pananamit. Bawal ang mga backless tops, sobrang ikling shorts, at spaghetti strap blouses.</p>
-                        </div>
-                    </div>
-
-                    <h3 class="text-xl font-semibold mb-2 sub-section-heading mt-8">B. KULTURA NG PAARALAN AT MAGANDANG KASANAYAN</h3>
-                    <p class="mb-4">Itinataguyod ng Tilambo Elementary School ang kultura ng kahusayan sa akademiko at holistic na pag-unlad sa pamamagitan ng mga sumusunod na magandang kasanayan:</p>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pagsasaulo-matematika">
-                            <h4>Pagsasaulo ng Matematika:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pagsasaulo-matematika-content">
-                            <p>Ang pagsasaulo ng multiplication table ay isasagawa araw-araw depende sa available na iskedyul ng guro at magiging bahagi ng morning drill.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="programa-pagbasa">
-                            <h4>Programa sa Pagbasa Nang Malakas (Read Aloud Program):</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="programa-pagbasa-content">
-                            <p>Ang Read Aloud Program ay isasagawa rin araw-araw depende sa iskedyul sa class program, libreng oras, o sa remediation time.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pamamahala-reses">
-                            <h4>Pamamahala ng Oras ng Reses:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pamamahala-reses-content">
-                            <p>Susubaybayan ng mga guro ang kanilang mga mag-aaral sa oras ng reses. Magre-reses ang mga guro pagkatapos ng kanilang mga mag-aaral.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="sesyon-pagsasanay">
-                            <h4>Mga Sesyon ng Pagsasanay ng mga Kalahok sa Kompetisyon sa Akademiko o Pampalakasan:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="sesyon-pagsasanay-content">
-                            <p>Ang mga pagsasanay para sa mga mag-aaral na lumalahok sa mga kompetisyon ay maaaring isagawa araw-araw mula 6:00 AM hanggang 7 AM at 2:00 PM hanggang 4:30 PM kung wala nang iskedyul ng klase (time-on-task policy).</p>
-                            <p>Anumang karagdagang araw ng pagsasanay ay iaanunsyo kung kinakailangan at kakailanganin ang pirma ng Parent’s Permit.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="kultura-paggalang">
-                            <h4>Kultura ng Paggalang at Kalinisan:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="kultura-paggalang-content">
-                            <p>Ang kaugalian ng paghingi ng basbas sa mga nakatatanda sa pagsasabi ng "Mano Po" ay lubos na hinihikayat sa mga mag-aaral at palalakasin ng mga guro at ng komunidad ng paaralan.</p>
-                            <p>Isang bulletin board sa loob ng silid-aralan ang magpapakita ng mga pangalan ng mga mag-aaral na patuloy na nagpapakita ng kalinisan, kabaitan, pagiging magalang, pagsunod sa paghihiwalay ng basura, at iba pang huwarang pag-uugali, upang magsilbing positibong pampalakas.</p>
-                        </div>
-                    </div>
-
-                    <h3 class="text-xl font-semibold mb-2 sub-section-heading mt-8">C. KULTURA NG KAHUSAYAN SA SERBISYO AT MGA PATAKARANG PINANSYAL</h3>
-                    <p class="mb-4">Sumusunod ang Tilambo Elementary School sa pinakamataas na pamantayan ng kahusayan sa serbisyo at malinaw na pamamahala sa pananalapi:</p>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="libreng-edukasyon">
-                            <h4>Libreng Batayang Edukasyon:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="libreng-edukasyon-content">
-                            <p>Alinsunod sa Konstitusyon ng Pilipinas, ipinapahayag sa lahat ng kasama sa paaralan na ang batayang edukasyon sa Tilambo Elementary School ay ibinibigay nang libre.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pagbabawal-bayarin">
-                            <h4>Pagbabawal sa Pagkolekta ng Bayarin:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pagbabawal-bayarin-content">
-                            <p>Mahigpit na ipinagbabawal sa mga guro ang pagkolekta ng anumang bayarin o kontribusyon mula sa mga mag-aaral para sa anumang layunin, alinsunod sa mga nauugnay na DepEd Order sa “No Collection Policy” (halimbawa, DepEd Order No. 41, s. 2012, at mga sumunod na isyu).</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="koleksyon-pta">
-                            <h4>Mga Koleksyon ng PTA:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="koleksyon-pta-content">
-                            <p>Ang mga kinikilalang Opisyal ng PTA lamang ang may kapangyarihang mangolekta ng anumang boluntaryong bayarin mula sa mga magulang, sa kondisyon na:</p>
-                            <ul class="list-disc ml-6">
-                                <li>Ang iminungkahing halaga at layunin ng mga bayarin ay naaprubahan ng nakararami sa mga magulang sa isang pangkalahatang pagpupulong.</li>
-                                <li>Ang mga kontribusyon ay mahigpit na boluntaryo, at walang mag-aaral ang mawawalan ng anumang serbisyo o pribilehiyo sa paaralan dahil sa hindi pagbabayad ng mga bayarin sa PTA, alinsunod sa mga alituntunin ng DepEd (halimbawa, DepEd Order No. 54, s. 2009).</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="patakaran-donasyon">
-                            <h4>Patakaran sa Donasyon:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="patakaran-donasyon-content">
-                            <p>Ang mga guro, PTA, at iba pang kasama ay hindi pinapayagan na tumanggap ng mga donasyon para sa paaralan nang walang paunang kaalaman at malinaw na pahintulot ng Principal. Isang itinalagang komite, na opisyal na nabuo at naaprubahan ng Principal, ang magiging responsable sa pakikipag-ugnayan at pagtanggap ng mga donasyon sa ngalan ng paaralan.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="dokumentasyon-donasyon">
-                            <h4>Dokumentasyon ng mga Donasyon:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="dokumentasyon-donasyon-content">
-                            <p>Lahat ng natanggap na donasyon ay dapat na maayos na idokumento. Isang Certificate of Donation ang ilalabas ng School Property Custodian/Brigada Coordinator, na may pirma ng Principal.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pagsunod-alituntunin">
-                            <h4>Pagsunod sa mga Alituntunin:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pagsunod-alituntunin-content">
-                            <p>Lahat ng iba pang alituntunin ng paaralan na nakasaad o nakapaskil sa paligid ng paaralan ay dapat isagawa nang tapat, magalang, at may integridad.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="feedback-diyalogo">
-                            <h4>Feedback at Diyalogo:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="feedback-diyalogo-content">
-                            <p>Magkakaroon ng suggestion box sa isang itinalagang lugar para tanggapin ang mga mungkahi at alalahanin mula sa komunidad ng paaralan. Ang sesyon ng talakayan sa pagitan ng mga guro at mga kinauukulang opisyal ng PTA ay isasagawa buwanan/quarterly para matugunan ang feedback at palakasin ang pagtutulungan.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="child-friendly-env">
-                            <h4>Child-Friendly Environment:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="child-friendly-env-content">
-                            <p>Lahat ng guro ay inaasahang maging sensitibo sa kasarian, masigasig na tagapagtaguyod ng patakaran sa proteksyon ng bata, at patuloy na itaguyod ang isang child-friendly na kapaligiran sa pag-aaral.</p>
-                        </div>
-                    </div>
-
-                    <h3 class="text-xl font-semibold mb-2 sub-section-heading mt-8">D. PAGKILALA SA MGA MAG-AARAL</h3>
-                    <p class="mb-4">Ipinagdiriwang ng Tilambo Elementary School ang mga tagumpay at kontribusyon ng mag-aaral:</p>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pagkilala-akademiko">
-                            <h4>1. Pagkilala sa Akademiko:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pagkilala-akademiko-content">
-                            <p>Ang mga mag-aaral na kwalipikado para sa Academic Excellence Awards (With Honors, With High Honors, With Highest Honors) ay pormal na kikilalanin sa pagtatapos ng taon ng pag-aaral sa Recognition o Moving Up Ceremonies, ayon sa DepEd Order No. 36, s. 2016.</p>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="nanalo-paligsahan">
-                            <h4>2. Mga Nanalo sa Paligsahan:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="nanalo-paligsahan-content">
-                            <p>Lahat ng mag-aaral na nagtagumpay sa mga paligsahan sa labas ng antas ng paaralan (halimbawa, District, Division, Regional, National Level) ay pormal na kikilalanin sa flag ceremony, at ang kanilang mga pangalan ay buong pagmamalaking ipapakita sa isang tarpaulin sa labas ng gate ng paaralan, na may pahintulot ng magulang at nagsisigurong positibo, hindi mapaghambing na presentasyon.</p>
-                            <ul class="list-disc ml-6 mt-2">
-                                <li><strong>Mga Insentibo para sa Kahusayan:</strong> Angkop na gantimpala ang ibibigay sa mga mag-aaral na nagbibigay karangalan at pagkilala sa paaralan. Ang paaralan ay magbibigay ng angkop na token o certificate of appreciation sa mga mag-aaral na nagbibigay karangalan sa paaralan, bilang bahagi ng layunin nitong itaguyod ang pagmamalaki at kultura ng kahusayan.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="awards-committee">
-                            <h4>3. AWARDS COMMITTEE (AC):</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="awards-committee-content">
-                            <p>Ang Awards Committee ang tanging responsable sa pagsusuri at pagpapatunay ng lahat ng parangal na ibibigay sa mga mag-aaral, na nagsisigurong patas at sumusunod sa pamantayan.</p>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Ranggo</th>
-                                        <th>Gantimpala (para sa mga itinalagang paligsahan sa akademiko)</th>
-                                    </tr>
-                                    <tr>
-                                        <th></th>
-                                        <th>Antas ng Dibisyon</th>
-                                        <th>Antas ng Rehiyon</th>
-                                        <th>Antas ng Paaralan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Una</td>
-                                        <td>Php 250.00</td>
-                                        <td>Php 350.00</td>
-                                        <td>Php 500.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pangalawa</td>
-                                        <td>Php 150.00</td>
-                                        <td>Php 250.00</td>
-                                        <td>Php 300.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pangatlo</td>
-                                        <td>Php 1,000.00</td>
-                                        <td>Php 150.00</td>
-                                        <td>Php 200.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="pondo-parangal">
-                            <h4>4. PONDO PARA SA MGA PARANGAL AT KOMPETISYON:</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="pondo-parangal-content">
-                            <ul class="list-disc ml-6">
-                                <li><strong>Mga Paligsahan sa Akademiko (Pangkalahatan):</strong> Ang pamasahe para sa mga paligsahan sa akademiko ay sasagutin mula sa pondo ng canteen ng paaralan at ng Faculty and Pupils Development Fund. Ang iba pang nauugnay na gastos ay sasagutin din ng pondo ng paaralan, depende sa availability at tamang liquidation.</li>
-                                <li><strong>Pampalakasan:</strong> Ang pamasahe, pagkain, at cash incentives para sa mga sports event ay maaaring kunin mula sa PTA, mga Opisyal ng Barangay, at iba pang Non-Government Organizations (NGOs) na bukas-palad na sumusuporta sa mga programa ng paaralan. Ang mga insentibong ito ay sasagutin depende sa availability ng pondo at tamang liquidation procedures.</li>
-                            </ul>
-                        </div>
+                    <div class="policy-card" data-target-page="pagkilala-mag-aaral-page">
+                        <h3 class="text-xl font-semibold mb-2">D. PAGKILALA SA MGA MAG-AARAL</h3>
+                        <p class="text-sm text-[#8C8C88]">Pagdiriwang ng mga tagumpay at kontribusyon ng mag-aaral.</p>
                     </div>
                 </div>
+                <button class="back-to-home-button" data-back-to="overview">Bumalik sa Home</button>
             </section>
 
-            <!-- Patakaran sa Proteksyon at Pag-uugali Section -->
+            <!-- New Section for A. KALIGTASAN UNA -->
+            <section id="kaligtasan-una-page" class="section-page">
+                <button class="back-button" data-back-to="patakaran-programa">← Bumalik</button>
+                <h2 class="text-2xl font-bold section-heading mb-4">I. MGA PATAKARAN AT PROGRAMA NG PAARALAN</h2>
+                <h3 class="text-xl font-semibold sub-section-heading mb-4">A. KALIGTASAN UNA</h3>
+                <p class="mb-4">Ang kaligtasan at kapakanan ng aming mga mag-aaral ang pinakamahalaga. Ang mga sumusunod na patakaran ay ipinapatupad para masiguro ang isang ligtas at maayos na kapaligiran para sa lahat:</p>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagpasok-gate">
+                        <h4>Pagpasok sa Gate:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagpasok-gate-content">
+                        <p>Ang mga gate ay sarado mula 7:30 AM hanggang 11:30 AM at mula 12:00 PM hanggang 2:00 PM. Magbubukas lamang gate sa ibang oras kung may malinaw na utos mula sa mga tagapamahala ng paaralan (halimbawa, sa mga emergency evacuation, espesyal na kaganapan, o para sa awtorisadong paghahatid).</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagsubaybay-paglilinis">
+                        <h4>Pagsubaybay sa Paglilinis:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagsubaybay-paglilinis-content">
+                        <p>Lahat ng lugar ng paglilinis ay dapat subaybayan ng kani-kanilang class adviser sa itinakdang oras ng paglilinis (6:45 AM - 7:15 AM).</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pamamaraan-aksidente">
+                        <h4>Pamamaraan sa Aksidente:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pamamaraan-aksidente-content">
+                        <p>Kung may aksidente, ang class adviser ay agad na magbibigay ng first aid o tutulong sa pagdala ng mag-aaral sa Barangay Health Center, at agad na ipapaalam sa mga magulang/tagapag-alaga ng mag-aaral.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="paghihiwalay-basura">
+                        <h4>Paghihiwalay ng Basura:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="paghihiwalay-basura-content">
+                        <p>Ang mga mag-aaral ay inaatasan na dalhin ang kanilang basurang papel sa Materials Recovery Facility (MRF) ng paaralan at ang kanilang basurang plastik sa bahay para sa tamang pagtatapon. Ito ay nagtataguyod ng responsibilidad sa kapaligiran.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="emergency-evacuation">
+                        <h4>Emergency Evacuation:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="emergency-evacuation-content">
+                        <p>Ang mga itinalagang lider ng silid-aralan ay aatasan na mamahala at manguna sa mga pamamaraan ng paglikas sa mga kaso ng emergency tulad ng lindol, sunog, o iba pang kalamidad. Regular na magsasagawa ng mga drill.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="kaayusan">
+                        <h4>Kaayusan:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="kaayusan-content">
+                        <p>Isang kultura ng kaayusan ang bubuuin at pananatilihin sa bawat silid-aralan at sa buong bakuran ng paaralan para mabawasan ang mga aksidente at itaguyod ang isang ligtas na kapaligiran, na naglalayong magkaroon ng zero aksidente.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="bawal-pumasok">
+                        <h4>Bawal Pumasok:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="bawal-pumasok-content">
+                        <p>Mahigpit na ipinagbabawal ang pagpasok sa bakuran ng paaralan sa mga araw na walang klase (Sabado, Linggo, at pista opisyal) maliban kung malinaw na pinahintulutan ng administrasyon ng paaralan para sa opisyal na layunin.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="tamang-pananamit">
+                        <h4>Tamang Pananamit para sa mga Bisita:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="tamang-pananamit-content">
+                        <p>Para sa kaligtasan at kaayusan ng kapaligiran ng paaralan, ang mga bisita at magulang na pumapasok sa bakuran ng paaralan ay pinakikiusapan na magsuot ng angkop na pananamit. Bawal ang mga backless tops, sobrang ikling shorts, at spaghetti strap blouses.</p>
+                    </div>
+                </div>
+                <button class="back-to-category-button" data-back-to="patakaran-programa">Bumalik sa Kategorya</button>
+            </section>
+
+            <!-- New Section for B. KULTURA NG PAARALAN AT MAGANDANG KASANAYAN -->
+            <section id="kultura-paaralan-page" class="section-page">
+                <button class="back-button" data-back-to="patakaran-programa">← Bumalik</button>
+                <h2 class="text-2xl font-bold section-heading mb-4">I. MGA PATAKARAN AT PROGRAMA NG PAARALAN</h2>
+                <h3 class="text-xl font-semibold sub-section-heading mb-4">B. KULTURA NG PAARALAN AT MAGANDANG KASANAYAN</h3>
+                <p class="mb-4">Itinataguyod ng Tilambo Elementary School ang kultura ng kahusayan sa akademiko at holistic na pag-unlad sa pamamagitan ng mga sumusunod na magandang kasanayan:</p>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagsasaulo-matematika">
+                        <h4>Pagsasaulo ng Matematika:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagsasaulo-matematika-content">
+                        <p>Ang pagsasaulo ng multiplication table ay isasagawa araw-araw depende sa available na iskedyul ng guro at magiging bahagi ng morning drill.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="programa-pagbasa">
+                        <h4>Programa sa Pagbasa Nang Malakas (Read Aloud Program):</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="programa-pagbasa-content">
+                        <p>Ang Read Aloud Program ay isasagawa rin araw-araw depende sa iskedyul sa class program, libreng oras, o sa remediation time.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pamamahala-reses">
+                        <h4>Pamamahala ng Oras ng Reses:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pamamahala-reses-content">
+                        <p>Susubaybayan ng mga guro ang kanilang mga mag-aaral sa oras ng reses. Magre-reses ang mga guro pagkatapos ng kanilang mga mag-aaral.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="sesyon-pagsasanay">
+                        <h4>Mga Sesyon ng Pagsasanay ng mga Kalahok sa Kompetisyon sa Akademiko o Pampalakasan:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="sesyon-pagsasanay-content">
+                        <p>Ang mga pagsasanay para sa mga mag-aaral na lumalahok sa mga kompetisyon ay maaaring isagawa araw-araw mula 6:00 AM hanggang 7 AM at 2:00 PM hanggang 4:30 PM kung wala nang iskedyul ng klase (time-on-task policy).</p>
+                        <p>Anumang karagdagang araw ng pagsasanay ay iaanunsyo kung kinakailangan at kakailanganin ang pirma ng Parent’s Permit.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="kultura-paggalang">
+                        <h4>Kultura ng Paggalang at Kalinisan:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="kultura-paggalang-content">
+                        <p>Ang kaugalian ng paghingi ng basbas sa mga nakatatanda sa pagsasabi ng "Mano Po" ay lubos na hinihikayat sa mga mag-aaral at palalakasin ng mga guro at ng komunidad ng paaralan.</p>
+                        <p>Isang bulletin board sa loob ng silid-aralan ang magpapakita ng mga pangalan ng mga mag-aaral na patuloy na nagpapakita ng kalinisan, kabaitan, pagiging magalang, pagsunod sa paghihiwalang ng basura, at iba pang huwarang pag-uugali, upang magsilbing positibong pampalakas.</p>
+                    </div>
+                </div>
+                <!-- NEW POLICY: Pagdalo sa mga Pagpupulong -->
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagdalo-meeting">
+                        <h4>Pagdalo sa mga Pagpupulong:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagdalo-meeting-content">
+                        <p>Mahalaga ang aktibong pagdalo ng mga magulang/tagapag-alaga sa mga school meeting (hal. General Assembly, Parent-Teacher Conferences, Homeroom PTA meetings) upang manatiling updated sa mga pag-unlad ng paaralan, mga patakaran, at mga pagkakataon para sa paglahok sa edukasyon ng kanilang anak. Ang regular na pagdalo ay nagpapakita ng suporta sa paaralan at sa pag-aaral ng mag-aaral.</p>
+                    </div>
+                </div>
+                <!-- NEW POLICY: Pagsali at Pagsuporta sa mga Programa ng Paaralan -->
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagsali-programa">
+                        <h4>Pagsali at Pagsuporta sa mga Programa ng Paaralan:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagsali-programa-content">
+                        <p>Ang mga magulang/tagapag-alaga ay hinihikayat na aktibong lumahok at sumuporta sa iba't ibang programa at aktibidad ng paaralan (hal. Brigada Eskwela, feeding programs, school events, fundraising activities). Ang kanilang paglahok ay mahalaga sa paglikha ng isang masigla at sumusuportang kapaligiran sa pag-aaral at sa pagpapabuti ng pasilidad ng paaralan.</p>
+                    </div>
+                </div>
+                <!-- NEW POLICY: Pagtulong ng mga Magulang sa Paggabay sa mga Mag-aaral -->
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagtulong-magulang-gabay">
+                        <h4>Pagtulong ng mga Magulang sa Paggabay sa mga Mag-aaral sa Tahanan:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagtulong-magulang-gabay-content">
+                        <p>Ang mga magulang/tagapag-alaga ay inaasahang magbigay ng patuloy na suporta sa pag-aaral ng kanilang mga anak sa tahanan. Kabilang dito ang paggabay sa pagbabasa, pagsusulat, at matematika, pati na rin ang pagpapatupad ng mga inirekomendang interbensyon sa pag-aaral mula sa mga guro. Ang paglikha ng isang kondusibong kapaligiran sa pag-aaral sa bahay ay mahalaga para sa akademikong pag-unlad ng mag-aaral.</p>
+                    </div>
+                </div>
+                <button class="back-to-category-button" data-back-to="patakaran-programa">Bumalik sa Kategorya</button>
+            </section>
+
+            <!-- New Section for C. KULTURA NG KAHUSAYAN SA SERBISYO AT MGA PATAKARANG PINANSYAL -->
+            <section id="kultura-serbisyo-page" class="section-page">
+                <button class="back-button" data-back-to="patakaran-programa">← Bumalik</button>
+                <h2 class="text-2xl font-bold section-heading mb-4">I. MGA PATAKARAN AT PROGRAMA NG PAARALAN</h2>
+                <h3 class="text-xl font-semibold sub-section-heading mb-4">C. KULTURA NG KAHUSAYAN SA SERBISYO AT MGA PATAKARANG PINANSYAL</h3>
+                <p class="mb-4">Sumusunod ang Tilambo Elementary School sa pinakamataas na pamantayan ng kahusayan sa serbisyo at malinaw na pamamahala sa pananalapi:</p>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="libreng-edukasyon">
+                        <h4>Libreng Batayang Edukasyon:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="libreng-edukasyon-content">
+                        <p>Alinsunod sa Konstitusyon ng Pilipinas, ipinapahayag sa lahat ng kasama sa paaralan na ang batayang edukasyon sa Tilambo Elementary School ay ibinibigay nang libre.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagbabawal-bayarin">
+                        <h4>Pagbabawal sa Pagkolekta ng Bayarin:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagbabawal-bayarin-content">
+                        <p>Mahigpit na ipinagbabawal sa mga guro ang pagkolekta ng anumang bayarin o kontribusyon mula sa mga mag-aaral para sa anumang layunin, alinsunod sa mga nauugnay na DepEd Order sa “No Collection Policy” (halimbawa, DepEd Order No. 41, s. 2012, at mga sumunod na isyu).</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="koleksyon-pta">
+                        <h4>Mga Koleksyon ng PTA:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="koleksyon-pta-content">
+                        <p>Ang mga kinikilalang Opisyal ng PTA lamang ang may kapangyarihang mangolekta ng anumang boluntaryong bayarin mula sa mga magulang, sa kondisyon na:</p>
+                        <ul class="list-disc ml-6">
+                            <li>Ang iminungkahang halaga at layunin ng mga bayarin ay naaprubahan ng nakararami sa mga magulang sa isang pangkalahatang pagpupulong.</li>
+                            <li>Ang mga kontribusyon ay mahigpit na boluntaryo, at walang mag-aaral ang mawawalan ng anumang serbisyo o pribilehiyo sa paaralan dahil sa hindi pagbabayad ng mga bayarin sa PTA, alinsunod sa mga alituntunin ng DepEd (halimbawa, DepEd Order No. 54, s. 2009).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="patakaran-donasyon">
+                        <h4>Patakaran sa Donasyon:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="patakaran-donasyon-content">
+                        <p>Ang mga guro, PTA, at iba pang kasama ay hindi pinapayagan na tumanggap ng mga donasyon para sa paaralan nang walang paunang kaalaman at malinaw na pahintulot ng Principal. Isang itinalagang komite, na opisyal na nabuo at naaprubahan ng Principal, ang magiging responsable sa pakikipag-ugnayan at pagtanggap ng mga donasyon sa ngalan ng paaralan.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="dokumentasyon-donasyon">
+                        <h4>Dokumentasyon ng mga Donasyon:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="dokumentasyon-donasyon-content">
+                        <p>Lahat ng natanggap na donasyon ay dapat na maayos na idokumento. Isang Certificate of Donation ang ilalabas ng School Property Custodian/Brigada Coordinator, na may pirma ng Principal.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagsunod-alituntunin">
+                        <h4>Pagsunod sa mga Alituntunin:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagsunod-alituntunin-content">
+                        <p>Lahat ng iba pang alituntunin ng paaralan na nakasaad o nakapaskil sa paligid ng paaralan ay dapat isagawa nang tapat, magalang, at may integridad.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="feedback-diyalogo">
+                        <h4>Feedback at Diyalogo:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="feedback-diyalogo-content">
+                        <p>Magkakaroon ng suggestion box sa isang itinalagang lugar para tanggapin ang mga mungkahi at alalahanin mula sa komunidad ng paaralan. Ang sesyon ng talakayan sa pagitan ng mga guro at mga kinauukulang opisyal ng PTA ay isasagawa buwanan/quarterly para matugunan ang feedback at palakasin ang pagtutulungan.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="child-friendly-env">
+                        <h4>Child-Friendly Environment:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="child-friendly-env-content">
+                        <p>Lahat ng guro ay inaasahang maging sensitibo sa kasarian, masigasig na tagapagtaguyod ng patakaran sa proteksyon ng bata, at patuloy na itaguyod ang isang child-friendly na kapaligiran sa pag-aaral.</p>
+                    </div>
+                </div>
+                <button class="back-to-category-button" data-back-to="patakaran-programa">Bumalik sa Kategorya</button>
+            </section>
+
+            <!-- New Section for D. PAGKILALA SA MGA MAG-AARAL -->
+            <section id="pagkilala-mag-aaral-page" class="section-page">
+                <button class="back-button" data-back-to="patakaran-programa">← Bumalik</button>
+                <h2 class="text-2xl font-bold section-heading mb-4">I. MGA PATAKARAN AT PROGRAMA NG PAARALAN</h2>
+                <h3 class="text-xl font-semibold sub-section-heading mb-4">D. PAGKILALA SA MGA MAG-AARAL</h3>
+                <p class="mb-4">Ipinagdiriwang ng Tilambo Elementary School ang mga tagumpay at kontribusyon ng mag-aaral:</p>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pagkilala-akademiko">
+                        <h4>1. Pagkilala sa Akademiko:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pagkilala-akademiko-content">
+                        <p>Ang mga mag-aaral na kwalipikado para sa Academic Excellence Awards (With Honors, With High Honors, With Highest Honors) ay pormal na kikilalanin sa pagtatapos ng taon ng pag-aaral sa Recognition o Moving Up Ceremonies, ayon sa DepEd Order No. 36, s. 2016.</p>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="nanalo-paligsahan">
+                        <h4>2. Mga Nanalo sa Paligsahan:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="nanalo-paligsahan-content">
+                        <p>Lahat ng mag-aaral na nagtagumpay sa mga paligsahan sa labas ng antas ng paaralan (halimbawa, District, Division, Regional, National Level) ay pormal na kikilalanin sa flag ceremony, at ang kanilang mga pangalan ay buong pagmamalaking ipapakita sa isang tarpaulin sa labas ng gate ng paaralan, na may pahintulot ng magulang at nagsisigurong positibo, hindi mapaghambing na presentasyon.</p>
+                        <ul class="list-disc ml-6 mt-2">
+                            <li><strong>Mga Insentibo para sa Kahusayan:</strong> Angkop na gantimpala ang ibibigay sa mga mag-aaral na nagbibigay karangalan at pagkilala sa paaralan. Ang paaralan ay magbibigay ng angkop na token o certificate of appreciation sa mga mag-aaral na nagbibigay karangalan sa paaralan, bilang bahagi ng layunin nitong itaguyod ang pagmamalaki at kultura ng kahusayan.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="awards-committee">
+                        <h4>3. AWARDS COMMITTEE (AC):</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="awards-committee-content">
+                        <p>Ang Awards Committee ang tanging responsable sa pagsusuri at pagpapatunay ng lahat ng parangal na ibibigay sa mga mag-aaral, na nagsisigurong patas at sumusunod sa pamantayan.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ranggo</th>
+                                    <th>Gantimpala (para sa mga itinalagang paligsahan sa akademiko)</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Antas ng Dibisyon</th>
+                                    <th>Antas ng Rehiyon</th>
+                                    <th>Antas ng Paaralan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Una</td>
+                                    <td>Php 250.00</td>
+                                    <td>Php 350.00</td>
+                                    <td>Php 500.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Pangalawa</td>
+                                    <td>Php 150.00</td>
+                                    <td>Php 250.00</td>
+                                    <td>Php 300.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Pangatlo</td>
+                                    <td>Php 1,000.00</td>
+                                    <td>Php 150.00</td>
+                                    <td>Php 200.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="pondo-parangal">
+                        <h4>4. PONDO PARA SA MGA PARANGAL AT KOMPETISYON:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="pondo-parangal-content">
+                        <ul class="list-disc ml-6">
+                            <li><strong>Mga Paligsahan sa Akademiko (Pangkalahatan):</strong> Ang pamasahe para sa mga paligsahan sa akademiko ay sasagutin mula sa pondo ng canteen ng paaralan at ng Faculty and Pupils Development Fund. Ang iba pang nauugnay na gastos ay sasagutin din ng pondo ng paaralan, depende sa availability at tamang liquidation.</li>
+                            <li><strong>Pampalakasan:</strong> Ang pamasahe, pagkain, at cash incentives para sa mga sports event ay maaaring kunin mula sa PTA, mga Opisyal ng Barangay, at iba pang Non-Government Organizations (NGOs) na bukas-palad na sumusuporta sa mga programa ng paaralan. Ang mga insentibong ito ay sasagutin depende sa availability ng pondo at tamang liquidation procedures.</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="back-to-category-button" data-back-to="patakaran-programa">Bumalik sa Kategorya</button>
+            </section>
+
+            <!-- Patakaran sa Proteksyon at Pag-uugali Section - Index Page -->
             <section id="proteksyon-pag-uugali" class="section-page">
-                <div class="toggle-header section-toggle-header" data-toggle="section-ii">
-                    <h2 class="text-2xl font-bold section-heading">II. PATAKARAN SA PROTEKSYON NG PAARALAN AT PAG-UUGALI NG MAG-AARAL</h2>
-                    <span class="toggle-icon">▶</span>
-                </div>
-                <div class="toggle-content" id="section-ii-content">
-                    <p class="mb-4">Ang Tilambo Elementary School ay nangangako na panatilihin ang isang ligtas at nagpoprotektang kapaligiran para sa lahat ng mag-aaral, malaya sa pang-aabuso, pagsasamantala, karahasan, diskriminasyon, at pambu-bully. Ang aming mga patakaran ay nakabatay sa mga probisyon ng DepEd Order No. 40, s. 2012 (Child Protection Policy) at Republic Act No. 10627 (Anti-Bullying Act of 2013).</p>
-                    <p class="mb-4">Para palakasin ang kamalayan at pagpapatupad, ang Child Protection Policy Committee at School Head ay regular na nagsasagawa ng mga seminar-conference para sa mga magulang at mag-aaral na nakatuon sa mga mahahalagang patakarang ito.</p>
-                    
-                    <h3 class="text-xl font-semibold mb-2 sub-section-heading">KLASIPIKASYON NG MGA PAGLABAG AT PARUSA</h3>
-
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="magaang-paglabag">
-                            <h4>1. MGA MAGAANG NA PAGLABAG (LIGHT OFFENSES)</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="magaang-paglabag-content">
-                            <p class="mb-2">Ang Magaang na Paglabag ay tumutukoy sa isang kilos na (1) labag sa pangkalahatang alituntunin at regulasyon ng paaralan na nakasaad sa Student Handbook na ito o (2) nakakagambala, ngunit hindi nagreresulta sa malubhang pinsala sa katawan o malaking pinsala sa ari-arian.</p>
-                            <p class="font-semibold mb-2">Mga Halimbawa ng Magaang na Paglabag:</p>
-                            <ul class="list-disc ml-6">
-                                <li>Paggamit ng bastos na salita, nakakainsultong komento, o panunukso na hindi kabilang sa depinisyon ng pambu-bully.</li>
-                                <li>Simpleng Pagsuway sa mga utos ng mga guro at iba pang awtoridad ng paaralan.</li>
-                                <li>Malakas na pagtawa o labis na pagsigaw sa loob ng bakuran ng paaralan.</li>
-                                <li>Paglalakad-lakad, pagtakbo sa mga koridor, daanan, at mga lugar na hindi pinahihintulutan sa loob ng campus.</li>
-                                <li>Maling paggamit ng Uniform ng Paaralan o hindi pagsunod sa itinakdang dress code (halimbawa, maruming uniporme).</li>
-                                <li>Maling Pag-aayos (halimbawa, hindi pagsunod sa itinakdang gupit, pagsusuot ng labis na accessories na hindi naaayon sa patakaran ng paaralan).</li>
-                                <li>Pagkakalat o hindi pagsunod sa mga alituntunin sa paghihiwalay ng basura ng paaralan.</li>
-                                <li>Paghahagis ng magagaan na bagay na maaaring makasama o magdulot ng kaunting istorbo sa iba.</li>
-                                <li>Pagbibigay ng hindi angkop na palayaw.</li>
-                                <li>Pagkain ng pagkain ng iba nang walang kaalaman o pahintulot nila.</li>
-                                <li>Pagtawa sa mga pagkakamali ng iba.</li>
-                                <li>Pagtatago ng mga gamit ng iba (halimbawa, tsinelas, libro, bag).</li>
-                                <li>Pagharang o paggambala sa iba sa oras ng klase o mga aktibidad ng paaralan.</li>
-                                <li>Pagdadala ng mga laruan o bagay na, bagamat hindi naman delikado, ay maaaring magdulot ng paggambala o kaunting abala.</li>
-                            </ul>
-                            <p class="font-semibold mb-2">Mga Parusa para sa Magaang na Paglabag:</p>
-                            <p class="mb-2">Ang mga parusa para sa Magaang na Paglabag ay idinisenyo para maging tama at makapagpabuti, alinsunod sa positibong diskarte sa disiplina ng DepEd.</p>
-                            <ul class="list-disc ml-6">
-                                <li><strong>UNANG PAGLABAG:</strong> Verbal na Pagsaway at Positive Discipline Session ng class adviser kasama ang mag-aaral. Ang sesyon na ito ay nakatuon sa pagpapaliwanag ng epekto ng mga kilos ng mag-aaral at paggabay sa kanila patungo sa angkop na pag-uugali. Ipapaalam sa magulang.</li>
-                                <li><strong>IKALAWANG PAGLABAG:</strong> Behavioral Contract. Isang kasunduan ang pormal na gagawin sa pagitan ng mag-aaral, magulang/tagapag-alaga, at isang kinatawan ng paaralan (halimbawa, guidance counselor, school head). Malinaw na nakasaad sa kontratang ito ang inaasahang pag-uugali, tiyak na layunin, at ang mga kahihinatnan kung muling lalabagin ang parehong paglabag. Maaaring kasama ang isang tagapanagot (halimbawa, opisyal ng barangay, pinagkakatiwalaang lider ng komunidad).</li>
-                                <li><strong>IKATLONG PAGLABAG:</strong> Community Service sa loob ng bakuran ng paaralan o barangay. Isang kasunduan ang pipirmahan sa pagitan ng mag-aaral, magulang/tagapag-alaga, at isang tagapanagot (halimbawa, opisyal ng barangay) na naglalaman ng uri at tagal ng community service. Ang serbisyo ay susubaybayan at makapagpapabuti.</li>
-                                <li><strong>IKAAPAT NA PAGLABAG:</strong> Supervised Community Service, na may mas mahabang tagal o mas matinding intensity kumpara sa ikatlong paglabag. Ang tiyak na termino ay tutukuyin ng administrasyon ng paaralan batay sa pag-unlad at pangako ng mag-aaral.</li>
-                                <li><strong>IKALIMANG PAGLABAG:</strong> Pagpapabalik sa magulang/tagapag-alaga sa loob ng tatlong (3) araw ng klase na may developmental learning intervention. Ang mag-aaral ay gagawa ng mga itinalagang gawain sa pag-aaral sa bahay, na susubaybayan ng mga magulang, na may gabay mula sa paaralan. Layunin nitong magbigay ng nakatuong panahon para sa pagmumuni-muni at pagbabago ng pag-uugali.</li>
-                            </ul>
-                        </div>
+                <h2 class="text-2xl font-bold section-heading text-center mb-6">II. PATAKARAN SA PROTEKSYON NG PAARALAN AT PAG-UUGALI NG MAG-AARAL</h2>
+                <p class="text-center text-[#8C8C88] mb-8">Ang Tilambo Elementary School ay nangangako na panatilihin ang isang ligtas at nagpoprotektang kapaligiran para sa lahat ng mag-aaral, malaya sa pang-aabuso, pagsasamantala, karahasan, diskriminasyon, at pambu-bully. Ang aming mga patakaran ay nakabatay sa mga probisyon ng DepEd Order No. 40, s. 2012 (Child Protection Policy) at Republic Act No. 10627 (Anti-Bullying Act of 2013).</p>
+                <p class="text-center text-[#8C8C88] mb-8">Para palakasin ang kamalayan at pagpapatupad, ang Child Protection Policy Committee at School Head ay regular na nagsasagawa ng mga seminar-conference para sa mga magulang at mag-aaral na nakatuon sa mga mahahalagang patakarang ito.</p>
+                <h3 class="text-xl font-bold sub-section-heading text-center mt-6 mb-4">KLASIPIKASYON NG MGA PAGLABAG AT PARUSA</h3>
+                <p class="text-center text-[#8C8C88] mb-8">Pumili ng kategorya ng paglabag para sa detalyadong impormasyon:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="policy-card" data-target-page="magaan-paglabag-page">
+                        <h3 class="text-xl font-semibold mb-2">1. MGA MAGAANG PAGLABAG</h3>
+                        <p class="text-sm text-[#8C8C88]">Mga paglabag na nakakagambala ngunit hindi nagdudulot ng malubhang pinsala.</p>
                     </div>
-
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="hindi-gaanong-malubhang-paglabag">
-                            <h4>2. MGA HINDI GAANONG MALUBHANG PAGLABAG (LESS GRAVE OFFENSES)</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="hindi-gaanong-malubhang-paglabag-content">
-                            <p class="mb-2">Ang Hindi Gaanong Malubhang Paglabag ay tumutukoy sa sadyang pagwawalang-bahala sa mga alituntunin at regulasyon ng paaralan na nagreresulta sa hindi gaanong malubhang pinsala sa katawan o emosyonal, o maliit na pinsala sa ari-arian.</p>
-                            <p class="font-semibold mb-2">Mga Halimbawa ng Hindi Gaanong Malubhang Paglabag:</p>
-                            <ul class="list-disc ml-6">
-                                <li>Paggamit ng malaswa o bastos, rasista, o sekswal na hindi angkop na pananalita para saktan ang ibang mag-aaral, na maaaring lumala patungo sa pambu-bully.</li>
-                                <li>Pagsali sa away o pagdulot ng pisikal na pinsala sa ibang mag-aaral, na nagreresulta sa maliit na pinsala (halimbawa, pasa, gasgas), na hindi umaabot sa antas ng malubhang pisikal na pananakit o matinding pambu-bully.</li>
-                                <li>Mga banta na magdulot ng masama sa tao o ari-arian ng ibang tao o sa kanyang pamilya, na nagdudulot ng takot o pangamba.</li>
-                                <li>Sadyang pagkasira o maliit na pinsala sa ari-arian ng paaralan (halimbawa, muwebles ng paaralan, kagamitan, fixtures) o personal na gamit ng ibang mag-aaral.</li>
-                                <li>Hindi awtorisadong pagbabago o pagpapapangit ng mga dokumento o rekord ng paaralan (halimbawa, report card, forms).</li>
-                                <li>Pagliban sa Klase nang walang balidong pahintulot.</li>
-                                <li>Extortion, na kinabibilangan ng pagkuha ng pera o ari-arian mula sa isang mag-aaral sa pamamagitan ng hindi marahas na pananakot o banayad na panggigipit.</li>
-                                <li>Pandaraya sa Akademiko (halimbawa, pandaraya sa mga pagsusulit o maliit na eksaminasyon, pagkopya ng mga takdang-aralin, maliit na plagiarism).</li>
-                            </ul>
-                            <p class="font-semibold mb-2">Mga Parusa para sa Hindi Gaanong Malubhang Paglabag:</p>
-                            <ul class="list-disc ml-6">
-                                <li><strong>UNANG PAGLABAG:</strong> Behavioral Contract. Isang kasunduan ang gagawin sa pagitan ng mag-aaral, magulang/tagapag-alaga, at isang mas malawak na network ng suporta na maaaring kasama ang isang opisyal ng barangay, isang school counselor, isang pari, o sinumang pinagkakatiwalaang miyembro ng komunidad na maaaring magbigay ng suporta. Ang kontratang ito ay magsasama ng isang malinaw na plano para sa pagpapabuti ng pag-uugali.</li>
-                                <li><strong>IKALAWANG PAGLABAG:</strong> Supervised Community Service. Ang uri at tagal ng community service ay magiging proporsyonal sa paglabag at idinisenyo para itaguyod ang pakiramdam ng responsibilidad.</li>
-                                <li><strong>IKATLONG PAGLABAG:</strong> Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng limang (5) araw ng klase na may interbensyon at referral. Ang mag-aaral ay irerefer sa school counselor o iba pang angkop na propesyonal (halimbawa, social worker, psychologist) para sa nakatuong suporta at interbensyon sa panahong ito.</li>
-                            </ul>
-                        </div>
+                    <div class="policy-card" data-target-page="hindi-gaanong-malubhang-paglabag-page">
+                        <h3 class="text-xl font-semibold mb-2">2. MGA HINDI GAANONG MALUBHANG PAGLABAG</h3>
+                        <p class="text-sm text-[#8C8C88]">Mga paglabag na nagdudulot ng hindi gaanong malubhang pinsala o maliit na pinsala sa ari-arian.</p>
                     </div>
-
-                    <div class="mb-4">
-                        <div class="toggle-header" data-toggle="malubhang-paglabag">
-                            <h4>3. MALUBHANG PAGLABAG (GRAVE OFFENSES)</h4>
-                            <span class="toggle-icon">▶</span>
-                        </div>
-                        <div class="toggle-content" id="malubhang-paglabag-content">
-                            <p class="mb-2">Ang Malubhang Paglabag ay tumutukoy sa anumang kilos na sadyang pagwawalang-bahala sa mga alituntunin at regulasyon ng paaralan na maaaring magresulta sa malubhang pinsala sa katawan, malaking pinsala sa ari-arian, emosyonal na trauma, o paglabag sa batas. Ang mga paglabag na ito ay nangangailangan ng pormal na imbestigasyon ng Child Protection Committee o mga angkop na awtoridad ng paaralan, na nagsisigurong may tamang proseso.</p>
-                            <p class="font-semibold mb-2">Mga Halimbawa ng Malubhang Paglabag:</p>
-                            <ul class="list-disc ml-6">
-                                <li>Pagnanakaw o pagtulong sa paghahanda nito, na kinabibilangan ng mga bagay na may malaking halaga, sa loob o labas ng bakuran ng paaralan.</li>
-                                <li>Pagmamay-ari o pagkonsumo ng anumang inuming nakalalasing habang nasa bakuran ng paaralan o sa oras ng opisyal na aktibidad ng paaralan.</li>
-                                <li>Pagiging miyembro ng anumang organisasyon o asosasyon na nagtataguyod ng karahasan, ilegal na aktibidad (halimbawa, fraternity, sorority, gang), o pagre-recruit ng mga miyembro para sa naturang organisasyon.</li>
-                                <li>Pagsusugal sa anumang anyo sa loob ng bakuran ng paaralan na nagdudulot ng malaking pagkalugi sa pananalapi o paggambala.</li>
-                                <li>Pagbebenta, pagmamay-ari, o pagiging nasa impluwensya ng anumang ilegal o kontroladong gamot o sangkap, o pagmamay-ari ng drug paraphernalia.</li>
-                                <li>Pagsasagawa ng anumang anyo ng voyeurism (halimbawa, lihim na pagre-record o pagtingin sa iba sa pribadong sitwasyon), pagpo-post ng malaswa o mahalay na mga larawan/video sa internet, o pagmamay-ay ng pornograpikong materyales.</li>
-                                <li>Pananakit o pisikal na pagpinsala sa mga guro, kawani ng paaralan, o iba pang taong may awtoridad sa loob ng komunidad ng paaralan.</li>
-                                <li>Pagmamay-ari o pagdadala ng nakamamatay o ipinagbabawal na armas (halimbawa, kutsilyo, baril, ipinagbabawal na matutulis na bagay) sa loob ng bakuran ng paaralan.</li>
-                                <li>Pagsasagawa ng malaswa o hindi angkop na pag-uugali sa ibang mag-aaral, guro, o iba pang awtoridad (halimbawa, pampublikong pagpapakita ng pagmamahal na may sekswal na pahiwatig, sexual harassment).</li>
-                                <li>Pagsasali sa away o pagdulot ng matinding pisikal na pinsala sa ibang mag-aaral, na nangangailangan ng medikal na atensyon o nagdudulot ng malaking pinsala.</li>
-                                <li>Extortion, na kinabibilangan ng pagkuha ng pera o ari-arian mula sa mga mag-aaral sa pamamagitan ng puwersa, matinding banta, o pananakot.</li>
-                                <li>Pandaraya sa Akademiko sa mga pangunahing pagsusuri (halimbawa, pandaraya sa mga summative examination, pagnanakaw ng mga papel ng eksaminasyon, malisyosong pagbabago ng mga opisyal na rekord ng paaralan).</li>
-                            </ul>
-                            <p class="font-semibold mb-2">Mga Parusa para sa Malubhang Paglabag:</p>
-                            <p class="mb-2">Para sa Malubhang Paglabag, ang paaralan ay magsasagawa ng masusing imbestigasyon, na nagsisigurong may tamang proseso, at magpapatupad ng mga aksyon sa disiplina nang mahigpit na alinsunod sa DepEd Order No. 40, s. 2012 (Child Protection Policy), Republic Act No. 10627 (Anti-Bullying Act), at iba pang nauugnay na patakaran ng DepEd sa disiplina ng mag-aaral. Maaaring kasama sa mga parusa ang:</p>
-                            <ul class="list-disc ml-6">
-                                <li><strong>UNANG PAGLABAG:</strong> Pagsasagawa ng supervised community service sa loob ng limang (5) araw sa paaralan o barangay, kasama ang matinding interbensyon at referral sa school counselor, psychologist, o mga nauugnay na ahensya sa labas kung angkop. Isang behavioral contract ang pormal na gagawin.</li>
-                                <li><strong>IKALAWANG PAGLABAG:</strong> Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng tatlong (3) araw ng klase. Sa panahong ito, ang mag-aaral ay sasali sa structured developmental learning interventions na gagabayan ng mga tauhan ng guidance ng paaralan at mga magulang.</li>
-                                <li><strong>IKATLONG PAGLABAG:</strong> Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng limang (5) araw ng klase. Ito ay magsasama ng mas matinding programa ng interbensyon at posibleng referral sa mga ahensya ng proteksyon ng bata sa labas o mga awtoridad sa batas, kung kinakailangan ng paaralan at alinsunod sa umiiral na batas.</li>
-                                <li><strong>IKAAPAT NA PAGLABAG:</strong> Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng pinalawig, itinalagang bilang ng mga araw, na tutukuyin sa konsultasyon sa mga magulang/tagapag-alaga, mga opisyal ng paaralan, at mga nauugnay na propesyonal. Ang tagal ay depende sa kalubhaan ng paglabag, ang resulta ng mga interbensyon, at ang pangangailangan para sa karagdagang suporta o referral. Maaaring kasama dito ang mas mahabang panahon ng pagliban sa paaralan, na may malinaw na plano ng muling pagpasok. Sa matinding kaso, at pagkatapos na maubos ang lahat ng posibleng interbensyon at sundin ang tamang proseso, maaaring isaalang-alang ang malubhang aksyon sa disiplina, kabilang ang pagbubukod o pagpapatalsik, alinsunod sa mga regulasyon ng DepEd.</li>
-                            </ul>
-                        </div>
+                    <div class="policy-card" data-target-page="malubhang-paglabag-page">
+                        <h3 class="text-xl font-semibold mb-2">3. MALUBHANG PAGLABAG</h3>
+                        <p class="text-sm text-[#8C8C88]">Mga paglabag na nagdudulot ng malubhang pinsala, trauma, o paglabag sa batas.</p>
                     </div>
                 </div>
+                <button class="back-to-home-button" data-back-to="overview">Bumalik sa Home</button>
             </section>
 
-            <!-- Signatories Section -->
-            <section id="signatories" class="section-page">
-                <h2 class="text-2xl font-bold mb-3 section-heading">Mga Lumagda</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-y-10">
-                    <div>
-                        <p class="font-semibold">Inihanda ni:</p>
-                        <p class="ml-4">LIMUEL F. GALICIA</p>
-                        <p class="ml-4 text-sm text-[#8C8C88]">Head Teacher I</p>
+            <!-- New Section for MGA MAGAANG NA PAGLABAG (LIGHT OFFENSES) -->
+            <section id="magaan-paglabag-page" class="section-page">
+                <button class="back-button" data-back-to="proteksyon-pag-uugali">← Bumalik</button>
+                <h2 class="text-2xl font-bold section-heading mb-4">II. PATAKARAN SA PROTEKSYON NG PAARALAN AT PAG-UUGALI NG MAG-AARAL</h2>
+                <h3 class="text-xl font-bold sub-section-heading mb-4">1. MGA MAGAANG PAGLABAG (LIGHT OFFENSES)</h3>
+                <p class="mb-2">Ang Magaang na Paglabag ay tumutukoy sa isang kilos na (1) labag sa pangkalahatang alituntunin at regulasyon ng paaralan na nakasaad sa Student Handbook na ito o (2) nakakagambala, ngunit hindi nagreresulta sa malubhang pinsala sa katawan o malaking pinsala sa ari-arian.</p>
+
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="halimbawa-magaan">
+                        <h4>A. Mga Halimbawa ng Magaang Paglabag</h4>
+                        <span class="toggle-icon">▶</span>
                     </div>
-                    <div>
-                        <p class="font-semibold">Sinuri ni:</p>
-                        <p class="ml-4">FLORANTE V. CANTOS</p>
-                        <p class="ml-4 text-sm text-[#8C8C88]">GPTA – President</p>
+                    <div class="toggle-content" id="halimbawa-magaan-content">
+                        <ul class="list-disc ml-6">
+                            <li>Paggamit ng bastos na salita, nakakainsultong komento, o panunukso na hindi kabilang sa depinisyon ng pambu-bully.</li>
+                            <li>Simpleng Pagsuway sa mga utos ng mga guro at iba pang awtoridad ng paaralan.</li>
+                            <li>Malakas na pagtawa o labis na pagsigaw sa loob ng bakuran ng paaralan.</li>
+                            <li>Paglalakad-lakad, pagtakbo sa mga koridor, daanan, at mga lugar na hindi pinahihintulutan sa loob ng campus.</li>
+                            <li>Maling paggamit ng Uniform ng Paaralan o hindi pagsunod sa itinakdang dress code (halimbawa, maruming uniporme).</li>
+                            <li>Maling Pag-aayos (halimbawa, hindi pagsunod sa itinakdang gupit, pagsusuot ng labis na accessories na hindi naaayon sa patakaran ng paaralan).</li>
+                            <li>Pagkakalat o hindi pagsunod sa mga alituntunin sa paghihiwalay ng basura ng paaralan.</li>
+                            <li>Paghahagis ng magagaan na bagay na maaaring makasama o magdulot ng kaunting istorbo sa iba.</li>
+                            <li>Pagbibigay ng hindi angkop na palayaw.</li>
+                            <li>Pagkain ng pagkain ng iba nang walang kaalaman o pahintulot nila.</li>
+                            <li>Pagtawa sa mga pagkakamali ng iba.</li>
+                            <li>Pagtatago ng mga gamit ng iba (halimbawa, tsinelas, libro, bag).</li>
+                            <li>Pagharang o paggambala sa iba sa oras ng klase o mga aktibidad ng paaralan.</li>
+                            <li>Pagdadala ng mga laruan o bagay na, bagamat hindi naman delikado, ay maaaring magdulot ng paggambala o kaunting abala.</li>
+                        </ul>
                     </div>
-                    <div>
-                        <p class="font-semibold">Pinagtibay ni:</p>
-                        <p class="ml-4">ANALYN I. SANTIAGO</p>
-                        <p class="ml-4 text-sm text-[#8C8C88]">Faculty President</p>
-                    </div>
-                    <div>
-                        <p class="ml-4 mt-6 md:mt-0">LORETA D. HERMIDILLA</p>
-                        <p class="ml-4 text-sm text-[#8C8C88]">Master Teacher II</p>
-                    </div>
-                    <div>
-                        <p class="font-semibold">Sa tulong ng:</p>
-                        <p class="ml-4">LEONISA B. ESCALA</p>
-                        <p class="ml-4 text-sm text-[#8C8C88]">Guidance Designate</p>
-                    </div>
-                    <div>
-                        <p class="ml-4 mt-6 md:mt-0">PRINCE RODGE T. CORACHEA</p>
-                        <p class="ml-4 text-sm text-[#8C8C88]">SELG - President</p>
-                    </div>
-                </div>
-                <div class="mt-8 text-center">
-                    <p class="font-semibold">Inaprubahan ni:</p>
-                    <p class="mt-2 text-lg font-bold">ERICKSON T. GUTIERREZ, EdD</p>
-                    <p class="text-base text-[#8C8C88]">OIC – Public Schools District Supervisor</p>
                 </div>
 
-                <section class="mt-12 text-center border-t border-[#DFDFDE] pt-8">
-                    <h2 class="text-2xl font-bold mb-4 section-heading">PAGSANG-AYON (CONFORME):</h2>
-                    <p class="mb-6">Sa pagpirma sa ibaba, kinikilala namin na nabasa, naintindihan, at sumasang-ayon kaming sumunod sa mga patakaran at alituntunin na nakasaad sa Student Handbook na ito, na naaayon sa mga alituntunin ng Department of Education.</p>
-                    <div class="mb-4">
-                        <p class="inline-block mr-4">Pangalan ng Magulang/Tagapag-alaga at Pirma:</p>
-                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="parusa-magaan-main">
+                        <h4>B. Mga Parusa para sa Magaang Paglabag:</h4>
+                        <span class="toggle-icon">▶</span>
                     </div>
-                    <div class="mb-6">
-                        <p class="inline-block mr-4">Petsa:</p>
-                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
+                    <div class="toggle-content" id="parusa-magaan-main-content">
+                        <p class="mb-2">Ang mga parusa para sa Magaang na Paglabag ay idinisenyo para maging tama at makapagpabuti, alinsunod sa positibong diskarte sa disiplina ng DepEd.</p>
+                        
+                        <!-- UNANG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="unang-paglabag">
+                                <h4>UNANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="unang-paglabag-content">
+                                <p>Verbal na Pagsaway at Positive Discipline Session ng class adviser kasama ang mag-aaral. Ang sesyon na ito ay nakatuon sa pagpapaliwanag ng epekto ng mga kilos ng mag-aaral at paggabay sa kanila patungo sa angkop na pag-uugali. Ipapaalam sa magulang.</p>
+                            </div>
+                        </div>
+
+                        <!-- IKALAWANG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="ikalawang-paglabag">
+                                <h4>IKALAWANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="ikalawang-paglabag-content">
+                                <p>Behavioral Contract. Isang kasunduan ang pormal na gagawin sa pagitan ng mag-aaral, magulang/tagapag-alaga, at isang kinatawan ng paaralan (halimbawa, guidance counselor, school head). Malinaw na nakasaad sa kontratang ito ang inaasahang pag-uugali, tiyak na layunin, at ang mga kahihinatnan kung muling lalabagin ang parehong paglabag. Maaaring kasama ang isang tagapanagot (halimbawa, opisyal ng barangay, pinagkakatiwalaang lider ng komunidad).</p>
+                            </div>
+                        </div>
+
+                        <!-- IKATLONG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="ikatlong-paglabag">
+                                <h4>IKATLONG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="ikatlong-paglabag-content">
+                                <p>Community Service sa loob ng bakuran ng paaralan o barangay. Isang kasunduan ang pipirmahan sa pagitan ng mag-aaral, magulang/tagapag-alaga, at isang tagapanagot (halimbawa, opisyal ng barangay) na naglalaman ng uri at tagal ng community service. Ang serbisyo ay susubaybayan at makapagpapabuti.</p>
+                            </div>
+                        </div>
+
+                        <!-- IKAAPAT NA PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="ikaapat-paglabag">
+                                <h4>IKAAPAT NA PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="ikaapat-paglabag-content">
+                                <p>Supervised Community Service, na may mas mahabang tagal o mas matinding intensity kumpara sa ikatlong paglabag. Ang tiyak na termino ay tutukuyin ng administrasyon ng paaralan batay sa pag-unlad at pangako ng mag-aaral.</p>
+                            </div>
+                        </div>
+
+                        <!-- IKALIMANG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="ikalimang-paglabag">
+                                <h4>IKALIMANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="ikalimang-paglabag-content">
+                                <p>Pagpapabalik sa magulang/tagapag-alaga sa loob ng tatlong (3) araw ng klase na may developmental learning intervention. Ang mag-aaral ay gagawa ng mga itinalagang gawain sa pag-aaral sa bahay, na susubaybayan ng mga magulang, na may gabay mula sa paaralan. Layunin nitong magbigay ng nakatuong panahon para sa pagmumuni-muni at pagbabago ng pag-uugali.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-4">
-                        <p class="inline-block mr-4">Pangalan ng Mag-aaral at Pirma:</p>
-                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
-                    </div>
-                    <div>
-                        <p class="inline-block mr-4">Petsa:</p>
-                        <span class="border-b border-[#8C8C88] pb-1 w-64 inline-block text-left">&nbsp;</span>
-                    </div>
-                </section>
+                </div>
+                <button class="back-to-category-button" data-back-to="proteksyon-pag-uugali">Bumalik sa Kategorya</button>
             </section>
+
+            <!-- New Section for MGA HINDI GAANONG MALUBHANG PAGLABAG (LESS GRAVE OFFENSES) -->
+            <section id="hindi-gaanong-malubhang-paglabag-page" class="section-page">
+                <button class="back-button" data-back-to="proteksyon-pag-uugali">← Bumalik</button>
+                <h2 class="text-2xl font-bold section-heading mb-4">II. PATAKARAN SA PROTEKSYON NG PAARALAN AT PAG-UUGALI NG MAG-AARAL</h2>
+                <h3 class="text-xl font-bold sub-section-heading mb-4">2. MGA HINDI GAANONG MALUBHANG PAGLABAG (LESS GRAVE OFFENSES)</h3>
+                <p class="mb-2">Ang Hindi Gaanong Malubhang Paglabag ay tumutukoy sa sadyang pagwawalang-bahala sa mga alituntunin at regulasyon ng paaralan na nagreresulta sa hindi gaanong malubhang pinsala sa katawan o emosyonal, o maliit na pinsala sa ari-arian.</p>
+
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="halimbawa-hindi-gaanong-malubhang">
+                        <h4>A. Mga Halimbawa ng Hindi Gaanong Malubhang Paglabag</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="halimbawa-hindi-gaanong-malubhang-content">
+                        <p class="font-semibold mb-2">Mga Halimbawa ng Hindi Gaanong Malubhang Paglabag:</p>
+                        <ul class="list-disc ml-6">
+                            <li>Paggamit ng malaswa o bastos, rasista, o sekswal na hindi angkop na pananalita para saktan ang ibang mag-aaral, na maaaring lumala patungo sa pambu-bully.</li>
+                            <li>Pagsali sa away o pagdulot ng pisikal na pinsala sa ibang mag-aaral, na nagreresulta sa maliit na pinsala (halimbawa, pasa, gasgas), na hindi umaabot sa antas ng malubhang pisikal na pananakit o matinding pambu-bully.</li>
+                            <li>Mga banta na magdulot ng masama sa tao o ari-arian ng ibang tao o sa kanyang pamilya, na nagdudulot ng takot o pangamba.</li>
+                            <li>Sadyang pagkasira o maliit na pinsala sa ari-arian ng paaralan (halimbawa, muwebles ng paaralan, kagamitan, fixtures) o personal na gamit ng ibang mag-aaral.</li>
+                            <li>Hindi awtorisadong pagbabago o pagpapapangit ng mga dokumento o rekord ng paaralan (halimbawa, report card, forms).</li>
+                            <li>Pagliban sa Klase nang walang balidong pahintulot.</li>
+                            <li>Extortion, na kinabibilangan ng pagkuha ng pera o ari-arian mula sa isang mag-aaral sa pamamagitan ng hindi marahas na pananakot o banayad na panggigipit.</li>
+                            <li>Pandaraya sa Akademiko (halimbawa, pandaraya sa mga pagsusulit o maliit na eksaminasyon, pagkopya ng mga takdang-aralin, maliit na plagiarism).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="parusa-hindi-gaanong-malubhang-main">
+                        <h4>B. Mga Parusa para sa Hindi Gaanong Malubhang Paglabag:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="parusa-hindi-gaanong-malubhang-main-content">
+                        <p class="font-semibold mb-2">Mga Parusa para sa Hindi Gaanong Malubhang Paglabag:</p>
+                        <!-- UNANG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="hindi-gaanong-malubhang-unang-paglabag">
+                                <h4>UNANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="hindi-gaanong-malubhang-unang-paglabag-content">
+                                <p>Behavioral Contract. Isang kasunduan ang gagawin sa pagitan ng mag-aaral, magulang/tagapag-alaga, at isang mas malawak na network ng suporta na maaaring kasama ang isang opisyal ng barangay, isang school counselor, isang pari, o sinumang pinagkakatiwalaang miyembro ng komunidad na maaaring magbigay ng suporta. Ang kontratang ito ay magsasama ng isang malinaw na plano para sa pagpapabuti ng pag-uugali.</p>
+                            </div>
+                        </div>
+                        <!-- IKALAWANG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="hindi-gaanong-malubhang-ikalawang-paglabag">
+                                <h4>IKALAWANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="hindi-gaanong-malubhang-ikalawang-paglabag-content">
+                                <p>Supervised Community Service. Ang uri at tagal ng community service ay magiging proporsyional sa paglabag at idinisenyo para itaguyod ang pakiramdam ng responsibilidad.</p>
+                            </div>
+                        </div>
+                        <!-- IKATLONG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="hindi-gaanong-malubhang-ikatlong-paglabag">
+                                <h4>IKATLONG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="hindi-gaanong-malubhang-ikatlong-paglabag-content">
+                                <p>Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng limang (5) araw ng klase na may interbensyon at referral. Ang mag-aaral ay irerefer sa school counselor o iba pang angkop na propesyonal (halimbawa, social worker, psychologist) para sa nakatuong suporta at interbensyon sa panahong ito.</p>
+                            </div>
+                        </div>
+                        <!-- IKAAPAT NA PAGLABAG (Placeholder for consistency) -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="hindi-gaanong-malubhang-ikaapat-paglabag">
+                                <h4>IKAAPAT NA PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="hindi-gaanong-malubhang-ikaapat-paglabag-content">
+                                <p>Ang parusa para sa ikaapat na paglabag sa kategoryang ito ay maaaring maging mas matindi o pinalawig na bersyon ng ikatlong paglabag, na may mas mahigpit na pagsubaybay at posibleng karagdagang referral sa mga ahensya ng proteksyon ng bata o iba pang propesyonal, depende sa kalubhaan at pag-uulit ng paglabag. Ito ay tutukuyin ng administrasyon ng paaralan sa konsultasyon sa mga kinauukulang partido.</p>
+                            </div>
+                        </div>
+                        <!-- IKALIMANG PAGLABAG (Placeholder for consistency) -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="hindi-gaanong-malubhang-ikalimang-paglabag">
+                                <h4>IKALIMANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="hindi-gaanong-malubhang-ikalimang-paglabag-content">
+                                <p>Ang parusa para sa ikalimang paglabag sa kategoryang ito ay maaaring magresulta sa pinalawig na pagpapabalik sa mga magulang/tagapag-alaga na may mas komprehensibong developmental learning intervention, o sa matinding kaso, ang pagsasaalang-alang ng mas malubhang aksyon sa disiplina, kabilang ang pagbubukod o pagpapatalsik, alinsunod sa mga regulasyon ng DepEd at pagkatapos ng masusing imbestigasyon at tamang proseso.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="back-to-category-button" data-back-to="proteksyon-pag-uugali">Bumalik sa Kategorya</button>
+            </section>
+
+            <!-- New Section for MALUBHANG PAGLABAG (GRAVE OFFENSES) -->
+            <section id="malubhang-paglabag-page" class="section-page">
+                <button class="back-button" data-back-to="proteksyon-pag-uugali">← Bumalik</button>
+                <h2 class="text-2xl font-bold section-heading mb-4">II. PATAKARAN SA PROTEKSYON NG PAARALAN AT PAG-UUGALI NG MAG-AARAL</h2>
+                <h3 class="text-xl font-bold sub-section-heading mb-4">3. MALUBHANG PAGLABAG (GRAVE OFFENSES)</h3>
+                <p class="mb-2">Ang Malubhang Paglabag ay tumutukoy sa anumang kilos na sadyang pagwawalang-bahala sa mga alituntunin at regulasyon ng paaralan na maaaring magresulta sa malubhang pinsala sa katawan, malaking pinsala sa ari-arian, emosyonal na trauma, o paglabag sa batas. Ang mga paglabag na ito ay nangangailangan ng pormal na imbestigasyon ng Child Protection Committee o mga angkop na awtoridad ng paaralan, na nagsisigurong may tamang proseso.</p>
+
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="halimbawa-malubhang">
+                        <h4>A. Mga Halimbawa ng Malubhang Paglabag</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="halimbawa-malubhang-content">
+                        <p class="font-semibold mb-2">Mga Halimbawa ng Malubhang Paglabag:</p>
+                        <ul class="list-disc ml-6">
+                            <li>Pagnanakaw o pagtulong sa paghahanda nito, na kinabibilangan ng mga bagay na may malaking halaga, sa loob o labas ng bakuran ng paaralan.</li>
+                            <li>Pagmamay-ari o pagkonsumo ng anumang inuming nakalalasing habang nasa bakuran ng paaralan o sa oras ng opisyal na aktibidad ng paaralan.</li>
+                            <li>Pagiging miyembro ng anumang organisasyon o asosasyon na nagtataguyod ng karahasan, ilegal na aktibidad (halimbawa, fraternity, sorority, gang), o pagre-recruit ng mga miyembro para sa naturang organisasyon.</li>
+                            <li>Pagsusugal sa anumang anyo sa loob ng bakuran ng paaralan na nagdudulot ng malaking pagkalugi sa pananalapi o paggambala.</li>
+                            <li>Pagbebenta, pagmamay-ari, o pagiging nasa impluwensya ng anumang ilegal o kontroladong gamot o sangkap, o pagmamay-ari ng drug paraphernalia.</li>
+                            <li>Pagsasagawa ng anumang anyo ng voyeurism (halimbawa, lihim na pagre-record o pagtingin sa iba sa pribadong sitwasyon), pagpo-post ng malaswa o mahalay na mga larawan/video sa internet, o pagmamay-ay ng pornograpikong materyales.</li>
+                            <li>Pananakit o pisikal na pagpinsala sa mga guro, kawani ng paaralan, o iba pang taong may awtoridad sa loob ng komunidad ng paaralan.</li>
+                            <li>Pagmamay-ari o pagdadala ng nakamamatay o ipinagbabawal na armas (halimbawa, kutsilyo, baril, ipinagbabawal na matutulis na bagay) sa loob ng bakuran ng paaralan.</li>
+                            <li>Pagsasagawa ng malaswa o hindi angkop na pag-uugali sa ibang mag-aaral, guro, o iba pang awtoridad (halimbawa, pampublikong pagpapakita ng pagmamahal na may sekswal na pahiwatig, sexual harassment).</li>
+                            <li>Pagsasali sa away o pagdulot ng matinding pisikal na pinsala sa ibang mag-aaral, na nangangailangan ng medikal na atensyon o nagdudulot ng malaking pinsala.</li>
+                            <li>Extortion, na kinabibilangan ng pagkuha ng pera o ari-arian mula sa mga mag-aaral sa pamamagitan ng puwersa, matinding banta, o pananakot.</li>
+                            <li>Pandaraya sa Akademiko sa mga pangunahing pagsusuri (halimbawa, pandaraya sa mga summative examination, pagnanakaw ng mga papel ng eksaminasyon, malisyosong pagbabago ng mga opisyal na rekord ng paaralan).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="toggle-header" data-toggle="parusa-malubhang-main">
+                        <h4>B. Mga Parusa para sa Malubhang Paglabag:</h4>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="toggle-content" id="parusa-malubhang-main-content">
+                        <p class="font-semibold mb-2">Para sa Malubhang Paglabag, ang paaralan ay magsasagawa ng masusing imbestigasyon, na nagsisigurong may tamang proseso, at magpapatupad ng mga aksyon sa disiplina nang mahigpit na alinsunod sa DepEd Order No. 40, s. 2012 (Child Protection Policy), Republic Act No. 10627 (Anti-Bullying Act), at iba pang nauugnay na patakaran ng DepEd sa disiplina ng mag-aaral. Maaaring kasama sa mga parusa ang:</p>
+                        <!-- UNANG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="malubhang-unang-paglabag">
+                                <h4>UNANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="malubhang-unang-paglabag-content">
+                                <p>Pagsasagawa ng supervised community service sa loob ng limang (5) araw sa paaralan o barangay, kasama ang matinding interbensyon at referral sa school counselor, psychologist, o mga nauugnay na ahensya sa labas kung angkop. Isang behavioral contract ang pormal na gagawin.</p>
+                            </div>
+                        </div>
+                        <!-- IKALAWANG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="malubhang-ikalawang-paglabag">
+                                <h4>IKALAWANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="malubhang-ikalawang-paglabag-content">
+                                <p>Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng tatlong (3) araw ng klase. Sa panahong ito, ang mag-aaral ay sasali sa structured developmental learning interventions na gagabayan ng mga tauhan ng guidance ng paaralan at mga magulang.</p>
+                            </div>
+                        </div>
+                        <!-- IKATLONG PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="malubhang-ikatlong-paglabag">
+                                <h4>IKATLONG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="malubhang-ikatlong-paglabag-content">
+                                <p>Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng limang (5) araw ng klase. Ito ay magsasama ng mas matinding programa ng interbensyon at posibleng referral sa mga ahensya ng proteksyon ng bata sa labas o mga awtoridad sa batas, kung kinakailangan ng paaralan at alinsunod sa umiiral na batas.</p>
+                            </div>
+                        </div>
+                        <!-- IKAAPAT NA PAGLABAG Toggle -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="malubhang-ikaapat-paglabag">
+                                <h4>IKAAPAT NA PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="malubhang-ikaapat-paglabag-content">
+                                <p>Pagpapabalik sa mga magulang/tagapag-alaga sa loob ng pinalawig, itinalagang bilang ng mga araw, na tutukuyin sa konsultasyon sa mga magulang/tagapag-alaga, mga opisyal ng paaralan, at mga nauugnay na propesyonal. Ang tagal ay depende sa kalubhaan ng paglabag, ang resulta ng mga interbensyon, at ang pangangailangan para sa karagdagang suporta o referral. Ito ay maaaring kasama dito ang mas mahabang panahon ng pagliban sa paaralan, na may malinaw na plano ng muling pagpasok. Sa matinding kaso, at pagkatapos na maubos ang lahat ng posibleng interbensyon at sundin ang tamang proseso, maaaring isaalang-alang ang malubhang aksyon sa disiplina, kabilang ang pagbubukod o pagpapatalsik, alinsunod sa mga regulasyon ng DepEd.</p>
+                            </div>
+                        </div>
+                        <!-- IKALIMANG PAGLABAG (Placeholder for consistency) -->
+                        <div class="mb-4">
+                            <div class="toggle-header toggle-header-level2" data-toggle="malubhang-ikalimang-paglabag">
+                                <h4>IKALIMANG PAGLABAG:</h4>
+                                <span class="toggle-icon">▶</span>
+                            </div>
+                            <div class="toggle-content" id="malubhang-ikalimang-paglabag-content">
+                                <p>Ang parusa para sa ikalimang paglabag sa kategoryang ito ay maaaring magresulta sa pinalawig na pagbubukod (exclusion) o permanenteng pagpapatalsik (expulsion) mula sa paaralan, alinsunod sa mga pinakamahigpit na probisyon ng DepEd Order No. 40, s. 2012 at iba pang nauugnay na batas. Ito ay isasagawa lamang pagkatapos ng komprehensibong imbestigasyon, pagsunod sa lahat ng tamang proseso, at sa konsultasyon sa mga magulang/tagapag-alaga at mga ahensya ng proteksyon ng bata, kung saan ang lahat ng iba pang interbensyon ay napatunayang hindi epektibo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="back-to-category-button" data-back-to="proteksyon-pag-uugali">Bumalik sa Kategorya</button>
+            </section>
+
+            <!-- Signatories Section - REMOVED -->
 
         </div>
 
@@ -666,10 +1011,7 @@
                 <span class="nav-item-icon">⚖️</span>
                 <span class="nav-item-text">Pag-uugali</span>
             </div>
-            <div class="nav-item" data-target="signatories">
-                <span class="nav-item-icon">✍️</span>
-                <span class="nav-item-text">Lumagda</span>
-            </div>
+            <!-- Removed Signatories nav item -->
         </nav>
     </div>
 
@@ -679,27 +1021,96 @@
             const navItems = document.querySelectorAll('.nav-item');
             const mainContentArea = document.querySelector('.main-content-area');
             const toggleHeaders = document.querySelectorAll('.toggle-header');
+            const policyCards = document.querySelectorAll('.policy-card');
+            const backButtons = document.querySelectorAll('.back-button'); // Select all back buttons
+            const backToCategoryButtons = document.querySelectorAll('.back-to-category-button'); // Select new back to category buttons
+            const backToHomeButtons = document.querySelectorAll('.back-to-home-button'); // Select existing back to home buttons
 
             const showSection = (targetId) => {
                 sectionPages.forEach(page => {
                     page.classList.remove('active');
                 });
-                document.getElementById(targetId).classList.add('active');
+                const targetPage = document.getElementById(targetId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
 
+                // Update active state for main navigation items
                 navItems.forEach(item => {
-                    if (item.dataset.target === targetId) {
+                    if (item.dataset.target === targetId || 
+                        (targetId.includes('-page') && (item.dataset.target === 'patakaran-programa' || item.dataset.target === 'proteksyon-pag-uugali'))) {
                         item.classList.add('active');
                     } else {
                         item.classList.remove('active');
                     }
                 });
 
-                mainContentArea.scrollTop = 0;
+                mainContentArea.scrollTop = 0; // Scroll to top of the content area
+
+                // If navigating to a policy sub-page, automatically open its main toggle
+                if (targetId.endsWith('-page')) {
+                    // For policy pages under "Patakaran at Programa" (e.g., kaligtasan-una-page)
+                    let mainToggleId = targetId.replace('-page', ''); // e.g., kaligtasan-una
+                    let mainToggleHeader = document.querySelector(`[data-toggle="${mainToggleId}"]`);
+                    
+                    // Logic to open the first inner toggle on these new pages
+                    if (targetId === 'magaan-paglabag-page' || targetId === 'hindi-gaanong-malubhang-paglabag-page' || targetId === 'malubhang-paglabag-page') {
+                        const firstInnerToggle = document.getElementById(targetId).querySelector('.toggle-header');
+                        if (firstInnerToggle && !firstInnerToggle.classList.contains('active')) {
+                            const content = document.getElementById(firstInnerToggle.dataset.toggle + '-content');
+                            const icon = firstInnerToggle.querySelector('.toggle-icon');
+                            if (content) {
+                                content.classList.add('active');
+                                icon.textContent = '▼';
+                                firstInnerToggle.classList.add('active');
+                            }
+                        }
+                    } else if (mainToggleHeader) { // Existing logic for "Patakaran at Programa" sub-pages
+                        const content = document.getElementById(mainToggleId + '-content');
+                        const icon = mainToggleHeader.querySelector('.toggle-icon');
+                        if (content && !content.classList.contains('active')) {
+                            content.classList.add('active');
+                            icon.textContent = '▼';
+                            mainToggleHeader.classList.add('active');
+                        }
+                    }
+                }
             };
 
             navItems.forEach(item => {
                 item.addEventListener('click', () => {
                     showSection(item.dataset.target);
+                });
+            });
+
+            // Handle clicks on policy cards to navigate to specific policy pages
+            policyCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    showSection(card.dataset.targetPage);
+                });
+            });
+
+            // Handle clicks on back buttons (top-left)
+            backButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetPage = button.dataset.backTo;
+                    showSection(targetPage);
+                });
+            });
+
+            // Handle clicks on "Bumalik sa Kategorya" buttons (bottom-center)
+            backToCategoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetPage = button.dataset.backTo;
+                    showSection(targetPage);
+                });
+            });
+
+            // Handle clicks on "Bumalik sa Home" buttons (bottom-center of index pages)
+            backToHomeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetPage = button.dataset.backTo;
+                    showSection(targetPage);
                 });
             });
 
@@ -712,30 +1123,21 @@
                     if (content) {
                         const isActive = content.classList.contains('active');
 
-                        // Determine the scope for closing other toggles
-                        // If it's a main section toggle (like "I. MGA PATAKARAN...")
-                        // it should close other main sections.
-                        // If it's a sub-section toggle (like "Pagpasok sa Gate"),
-                        // it should close other sub-sections within its immediate parent toggle-content.
-                        let scopeContainer = null;
-                        if (header.classList.contains('section-toggle-header')) {
-                            // For main section headers, the scope is the entire main content area
-                            scopeContainer = mainContentArea;
-                        } else {
-                            // For sub-section headers, the scope is their closest parent .toggle-content
-                            // This ensures only siblings within the same logical group are affected.
-                            scopeContainer = header.closest('.toggle-content');
+                        // Determine the scope container for closing other toggles
+                        let scopeContainer = header.closest('.toggle-content');
+                        if (!scopeContainer) { 
+                            scopeContainer = header.closest('.section-page');
                         }
 
                         // Close other active toggles within the determined scope
                         if (scopeContainer) {
                             scopeContainer.querySelectorAll('.toggle-header.active').forEach(openHeader => {
-                                if (openHeader !== header) { // Don't close the clicked header itself
+                                if (openHeader !== header && !header.contains(openHeader)) { 
                                     const openContent = document.getElementById(openHeader.dataset.toggle + '-content');
                                     const openIcon = openHeader.querySelector('.toggle-icon');
                                     if (openContent) {
                                         openContent.classList.remove('active');
-                                        openIcon.textContent = '▶'; // Right arrow for collapsed
+                                        openIcon.textContent = '▶'; 
                                         openHeader.classList.remove('active');
                                     }
                                 }
@@ -745,11 +1147,11 @@
                         // Then toggle the clicked header
                         if (isActive) {
                             content.classList.remove('active');
-                            icon.textContent = '▶'; // Right arrow for collapsed
+                            icon.textContent = '▶'; 
                             header.classList.remove('active');
                         } else {
                             content.classList.add('active');
-                            icon.textContent = '▼'; // Down arrow for expanded
+                            icon.textContent = '▼'; 
                             header.classList.add('active');
                         }
                     }

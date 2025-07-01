@@ -637,41 +637,44 @@
                         <span class="toggle-icon">▶</span>
                     </div>
                     <div class="toggle-content" id="awards-committee-content">
-                        <p>Ang Awards Committee ang tanging responsable sa pagsusuri at pagpapatunay ng lahat ng parangal na ibibigay sa mga mag-aaral, na nagsisigurong patas at sumusunod sa pamantayan.</p>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Ranggo</th>
-                                    <th>Gantimpala (para sa mga itinalagang paligsahan sa akademiko)</th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <th>Antas ng Dibisyon</th>
-                                    <th>Antas ng Rehiyon</th>
-                                    <th>Antas ng Paaralan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Una</td>
-                                    <td>Php 250.00</td>
-                                    <td>Php 350.00</td>
-                                    <td>Php 500.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Pangalawa</td>
-                                    <td>Php 150.00</td>
-                                    <td>Php 250.00</td>
-                                    <td>Php 300.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Pangatlo</td>
-                                    <td>Php 1,000.00</td>
-                                    <td>Php 150.00</td>
-                                    <td>Php 200.00</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <p>Ang Awards Committee ang tanging responsable sa pagsusuri at pagpapatunay ng lahat ng parangal na ibibigay sa mga mag-aaral, na nagsisigurang patas at sumusunod sa pamantayan.</p>
+                        <!-- Added a responsive wrapper for the table -->
+                        <div class="overflow-x-auto w-full">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ranggo</th>
+                                        <th>Gantimpala (para sa mga itinalagang paligsahan sa akademiko)</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th>Antas ng Dibisyon</th>
+                                        <th>Antas ng Rehiyon</th>
+                                        <th>Antas ng Palarong Pambansa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Una</td>
+                                        <td>Php 250.00</td>
+                                        <td>Php 350.00</td>
+                                        <td>Php 500.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pangalawa</td>
+                                        <td>Php 150.00</td>
+                                        <td>Php 250.00</td>
+                                        <td>Php 300.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pangatlo</td>
+                                        <td>Php 1,000.00</td>
+                                        <td>Php 150.00</td>
+                                        <td>Php 200.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -1109,7 +1112,7 @@
             // Handle clicks on "Bumalik sa Home" buttons (bottom-center of index pages)
             backToHomeButtons.forEach(button => {
                 button.addEventListener('click', () => {
-                    const targetPage = button.dataset.backTo;
+                    const targetPage = button.dataset.target; // Should be data-back-to="overview"
                     showSection(targetPage);
                 });
             });
